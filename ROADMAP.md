@@ -105,3 +105,17 @@ A milestone is complete only when requirements, test evidence, known limitations
 - [ ] Track AV2 v1.0.0, AVM and dav2d conformance/performance; keep AV2 out of production defaults until hardware/software maturity is proven.
 - [ ] Do not disable mandatory codec tools to force playback; use compatible renditions or report unsupported.
 - [ ] Reassess codec support, decoder libraries, security and license state during weekly ecosystem reviews.
+
+
+## Phase 8 — NAS, home media and cross-device services
+- [ ] Record candidate NAS hardware, CPU architecture, RAM, disk/controller topology, network and recovery path.
+- [ ] Compare FygoOS/fnOS, TrueNAS and OpenMediaVault against the NAS research register; verify current edition, licensing, supported hardware and lifecycle.
+- [ ] Select a disposable test environment; do not install on production storage before recovery and backup procedures are validated.
+- [ ] Define storage, backup, snapshot, restore, identity/access and monitoring contracts.
+- [ ] Evaluate Docker/Compose security, image provenance, least privilege, resource limits, secrets and rollback.
+- [ ] Compare Jellyfin, Emby, Plex and Fygo TV as replaceable media-server adapters.
+- [ ] Define metadata and artwork pipeline with local NFO/user-correction persistence and duplicate protection.
+- [ ] Validate mobile, desktop and Android TV clients; verify exact Toshiba R700 ABI, firmware, D-pad navigation and codec behavior.
+- [ ] Test LAN discovery, SMB/NFS permissions, VPN/proxy coexistence, remote access security and offline behavior.
+- [ ] Complete disk-failure, power-loss, backup-restore, OS-update and container-rollback drills; record RPO/RTO before adoption.
+- [ ] Keep vendor-specific NAS and media services optional; UTOS contracts must support migration and replacement.
