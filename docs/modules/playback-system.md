@@ -137,3 +137,80 @@ References are research entry points. Re-check current upstream state, exact lic
 - U: unknown / pending verification.
 
 This document is a design baseline only. No UTOS player build or R700 test result is claimed.
+
+
+## 11. Advanced codec roadmap: AV1, VVC and AV2
+
+### 11.1 Policy and evidence boundary
+
+Codec support is a layered capability, not a player-brand feature. The complete path is container/demuxer → bitstream parser → decoder (vendor MediaCodec/Codec2 or software library) → color conversion/rendering → audio output. A codec label alone cannot establish compatibility.
+
+**UTOS priority:**
+- **AV1:** compatibility target for the first playback generation. Prefer vendor hardware decode where the device exposes a conforming decoder. Evaluate Media3's optional AV1 software decoder extension only as a controlled fallback on sufficiently powerful devices; it is not equivalent in power or thermal cost to hardware decode.
+- **H.266/VVC:** forward-compatibility research. Use a vendor hardware decoder when the platform exposes it. VVdeC is a software decoder candidate for controlled trials, not an assumption of real-time 4K on every ARM TV.
+- **AV2:** experimental / future-compatibility track. AOMedia published AV2 v1.0.0 on 28 May 2026. VideoLAN's dav2d is an early software decoder; do not ship it as a production default or promise real-time playback until conformance, performance, thermal and integration tests pass.
+- **Legacy formats:** preserve robust H.264/HEVC/VP9/AAC/AC-3 and common container support before spending resources on next-generation codec support.
+
+Do not claim fixed codec complexity multipliers, bitrate savings or universal SoC cutoffs as engineering facts without citing the exact test conditions, profile, bit depth, resolution, frame rate, encoder settings and quality metric. Compression efficiency is content- and configuration-dependent.
+
+### 11.2 Decoder selection ladder
+
+1. Parse container, codec, profile, level, bit depth, chroma subsampling, HDR metadata, frame rate and DRM requirements.
+2. Query actual device decoder capabilities through Android platform APIs; record decoder name, hardware/software classification, supported profiles, size/rate limits and secure-decoder constraints.
+3. Prefer a compatible vendor hardware decoder.
+4. If hardware initialization fails, try another compatible platform decoder only when Media3 reports one; enable and test decoder fallback deliberately.
+5. For AV1 only, optionally evaluate the Media3 AV1 software extension (dav1d-based) on capable devices. Gate by measured CPU headroom, sustained frame rate, memory, temperature and power.
+6. Evaluate LibVLC / libmpv only for confirmed engine-specific gaps; do not assume adding a player engine automatically supplies an optimized decoder.
+7. For VVC, evaluate vendor decoder first; VVdeC is a research software path subject to ARM build, performance, memory, licensing and thermal qualification.
+8. For AV2, keep dav2d/AVM in lab builds and offline test tools. Do not enable automatic fallback on R700 or other low-power TV devices before device-specific proof.
+9. If no safe decoder meets real-time requirements, fail clearly and suggest a compatible rendition/codec. Do not enter an endless software-decoder retry loop.
+
+### 11.3 Performance engineering
+
+Optimization work is ordered by evidence, not by speculative hand-tuning:
+
+- **Algorithm / tool path:** profile hot functions first; optimize inverse transforms, interpolation, intra/inter prediction, entropy decode, in-loop filters and film-grain synthesis only where traces show material cost.
+- **Parallel scheduling:** use codec-defined independent work units (e.g. AV1 tiles where legal); preserve frame/CTU/CU dependencies. Bound worker count to available big/little cores and thermal budget.
+- **SIMD:** use maintained upstream NEON/AVX implementations (e.g. dav1d for AV1) before writing custom assembly. Validate bit-exactness and compare per-architecture.
+- **Memory / bandwidth:** measure reference-frame footprint, cache misses, allocation churn, copy count, stride/alignment and memory bandwidth. Reuse buffers only with explicit ownership/lifetime guarantees.
+- **Hardware pipeline:** prefer vendor MediaCodec/Codec2 hardware decode; inspect actual decoder selection and output path. App code cannot optimize a proprietary silicon pipeline it does not control.
+- **Quality-preserving degradation:** do not arbitrarily disable normative decoder tools such as ALF or CDEF. A conforming decoder must implement required bitstream semantics. Degrade by choosing a lower-resolution/lower-frame-rate/lower-complexity source rendition, reducing optional post-processing, or declining unsupported media—not by silently skipping mandatory bitstream operations.
+
+### 11.4 AV1-specific notes
+
+- dav1d is a mature, cross-platform AV1 software decoder with ARM NEON and x86 SIMD optimizations; it is a candidate for controlled software decode, not a guarantee that 4K AV1 will run smoothly on a TV SoC.
+- AV1 film grain synthesis is part of correct reconstruction when signaled. Do not silently disable it as a generic performance shortcut; measure its cost and preserve conformance/visual fidelity.
+- Media3's AV1 software decoder extension is optional and must be explicitly built/included. Default Media3 decoding remains platform-dependent.
+
+### 11.5 VVC / AV2 research candidates
+
+- **VVdeC:** Fraunhofer's software VVC decoder supports Main10 and documents multithreading/SIMD work. Fraunhofer describes live software decoding up to 4Kp60 in its implementation context; this must not be generalized to R700 or arbitrary ARM hardware.
+- **dav2d:** VideoLAN's AV2 decoder has early support and architecture optimizations, but its own project page warns against production use. Treat as experimental until stable API, conformance, security response, Android integration and target-device performance are established.
+- **AVM:** AOMedia's reference software is the authoritative AV2 reference implementation for conformance/experimentation, not a consumer real-time playback engine.
+
+### 11.6 Test matrix and acceptance
+
+For each codec/profile, record:
+- container and transport; codec profile/level; bit depth; chroma format; resolution; frame rate; HDR metadata; audio codec; DRM state;
+- actual decoder component and hardware/software classification;
+- cold start / warm start first-frame time; sustained decoded FPS; dropped frames; A/V sync;
+- CPU per core, RAM peak, memory bandwidth where measurable, GPU/compositor load, temperature and power;
+- 10/30/60-minute stability and thermal steady-state, plus seek/track-change/reconnect behavior;
+- exact device model, SoC, firmware, Android API, engine version, decoder library commit and fixture hash.
+
+A test passes only if playback sustains the source frame rate without unacceptable drops, audio stays synchronized, thermal behavior remains within device limits, and no crash/ANR/leak occurs. Thresholds must be established from the R700 baseline; no universal numbers are assumed.
+
+### 11.7 Corrections to common claims
+
+- Media3 is not hardware-only: it defaults to Android platform decoders and also has optional software decoder extensions, including AV1.
+- AV1 hardware availability cannot be inferred from a generic chipset-generation slogan; query the actual device's decoder capabilities.
+- AV2 v1.0.0 is published, but a published standard does not imply consumer SoC hardware support or mature playback deployment.
+- Android 17 adds VVC platform interfaces, but AOSP does not include a VVC software decoder; vendor decoder availability remains device-specific.
+- IJKPlayer / FFmpeg / VLC do not automatically guarantee dav1d, VVdeC or dav2d integration. Verify exact build flags, versions and decoder wiring.
+- Never claim “VLC is the only one-stop SDK” or that every VLC build includes every software decoder. Verify the exact LibVLC build and enabled codecs.
+
+### 11.8 Current status
+
+**Design:** AV1 compatibility target; VVC research; AV2 experimental.
+**Implementation:** no AV1/VVC/AV2 decoder integration has been completed for UTOS.
+**Device evidence:** no R700 decoder capability dump or codec benchmark is available. All R700 performance claims remain U.
