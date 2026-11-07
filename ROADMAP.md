@@ -3,6 +3,8 @@
 Planning baseline only; not a promise of delivery dates.
 
 ## Phase 0 — Foundation
+- [ ] Establish reliability engineering baseline: incident taxonomy, severity, deadlines, bounded retries, circuit breaking, safe fallback, recovery and release gates.
+- [ ] Add CI/static quality gates and link every release requirement to an executable test and evidence record.
 - [x] Create repository and establish evidence rules.
 - [x] Define initial architecture and research taxonomy.
 - [x] Define UTOS Live TV product baseline and curated GitHub ecosystem research.
