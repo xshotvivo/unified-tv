@@ -155,3 +155,64 @@ The current upstream README documents:
 - **AI addition:** AI should explain structured evidence, propose likely causes and invoke only allowlisted reversible actions. It must not invent URLs, bypass access controls or claim recovery without verified playback.
 
 Evidence boundary: these are features described by upstream documentation; independent code review, license review and R700 testing remain pending.
+
+
+## 9. Playback application and engine ecosystem
+
+**Checked:** 2026-11-07. This is a targeted reference list, not a complete market-share ranking. Claims about popularity or market share are intentionally omitted unless supported by reliable measurement.
+
+### 9.1 Official engine references
+
+- **AndroidX Media3 / ExoPlayer** — primary UTOS candidate. Official Android documentation lists HLS/DASH, DRM and device/API requirements. Container support does not guarantee every contained codec is supported; device decoder capability remains decisive.
+- **LibVLC for Android** — conditional secondary engine. Official VLC Android repository describes broad formats, protocols, network filesystems, HDR and audio passthrough capabilities. The repository distinguishes the VLC Android application GPL license from the LibVLC Android engine LGPL license; review exact distribution/linking obligations.
+- **libmpv / mpv-android** — research candidate for advanced rendering, libass subtitles and playback controls. The mpv-android repository states its app is not itself an importable AAR; integrating libmpv requires native build and application-side work.
+- **IJKPlayer** — legacy reference only. The official Bilibili repository releases page currently shows no packaged releases. This alone does not prove abandonment, but it is insufficient evidence of a maintained, security-supported production dependency. Inspect recent commits, FFmpeg revision and patchability before reconsidering.
+- **FFmpeg** — component/framework, not an end-user player UI. Build configuration affects codec support, binary size, patent exposure and license obligations.
+
+### 9.2 End-user applications to study
+
+| Product | Platform / role | UTOS research value |
+|---|---|---|
+| VLC | Android TV, Android, desktop | Broad network playback, SMB/NAS, track controls, fallback UX |
+| Just (Video) Player | Android TV / Android | Minimal player UX, Media3 behavior, remote controls |
+| Nova Video Player | Android TV / Android | Library, metadata, network shares and TV navigation |
+| Kodi | Android TV and other platforms | Media-center information architecture, add-on boundaries, library and playback settings |
+| mpv-android | Android / Android TV | Advanced subtitle/rendering controls and engine behavior |
+| MX Player | Android | Gesture and track-control patterns; verify current app policy, ads and TV behavior |
+| PotPlayer / MPC-HC / MPC-BE | Windows | Advanced playback controls, subtitles and diagnostics as desktop references |
+| IINA | macOS | Minimal UI and mpv-backed interaction as a desktop reference |
+
+These are research targets, not an endorsement, code-reuse approval or assertion that each product uses a particular engine version.
+
+### 9.3 Snapshot findings and cautions
+
+- Media3 official release documentation showed stable 1.11.1 on the 2026-11-07 snapshot; pin the current stable version at implementation time rather than freezing this research snapshot.
+- Media3 official docs list HLS MPEG-TS and fMP4/CMAF support, while the codecs inside those containers must also be supported.
+- VLC Android's repository describes LibVLC as an embeddable engine and states the Android application and LibVLC engine have different license terms.
+- mpv's official documentation recommends libmpv as its embedding API; mpv-android notes its own app is not a drop-in AAR.
+- The IJKPlayer GitHub releases page currently reports no releases. Treat project maintenance and vulnerability response as unresolved pending commit-level review.
+- Just (Video) Player is a useful Media3-based product reference, but its advertised feature list is upstream information and must be checked against the exact source/release and R700 hardware.
+
+### 9.4 UTOS decision
+
+**Primary:** Media3.
+**Conditional secondary:** LibVLC, only for measured Media3 gaps.
+**Research-only:** libmpv.
+**Hold:** IJKPlayer.
+**Not a standalone player choice:** FFmpeg.
+
+Do not ship multiple engines merely to maximize a feature checklist. Each engine increases native binary size, ABI coverage, memory use, test matrix, security patch burden and license review. The R700 comparison must use the same local test fixtures, firmware, network and measurement procedure.
+
+### 9.5 Official source links
+
+- Media3 releases: https://developer.android.com/jetpack/androidx/releases/media3
+- Supported devices: https://developer.android.com/media/media3/exoplayer/supported-devices
+- HLS: https://developer.android.com/media/media3/exoplayer/hls
+- DRM: https://developer.android.com/media/media3/exoplayer/drm
+- VLC Android / LibVLC: https://github.com/videolan/vlc-android
+- IJKPlayer releases: https://github.com/bilibili/ijkplayer/releases
+- mpv libmpv embedding: https://github.com/mpv-player/mpv/blob/master/DOCS/man/libmpv.rst
+- mpv-android: https://github.com/mpv-android/mpv-android
+- Just (Video) Player: https://github.com/moneytoo/Player
+
+Evidence boundary: official docs establish documented feature/support statements, not R700 performance. All product-specific compatibility, UX and stability conclusions remain unmeasured until local fixture and hardware tests.
