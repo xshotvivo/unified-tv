@@ -470,3 +470,16 @@ Public source availability does not grant reuse rights. This section is a design
 **Decision status:** architecture direction accepted for planning: Media3 primary; LibVLC conditional; libmpv research-only; IJKPlayer held.
 
 **Implementation status:** not implemented. No engine has been benchmarked on Toshiba R700. No APK, compatibility result, speed advantage or reliability claim is made.
+
+
+## 15. Advanced codec compatibility and performance
+
+UTOS codec policy is now: AV1 = compatibility target; H.266/VVC = research; AV2 = experimental. Media3 is not hardware-only: Android platform decoders are the default, and optional software decoder extensions (including AV1) can be built and included. Hardware support must be queried from the actual target device.
+
+Do not infer decoder capability from chipset generation labels. Record codec profile/level, bit depth, chroma, resolution, frame rate, HDR, DRM and actual decoder component. Prefer hardware decode; evaluate software decode only with sustained FPS, CPU, RAM, thermal and power evidence.
+
+VVC research candidates include vendor MediaCodec/Codec2 and VVdeC. Android 17 introduces VVC platform interfaces but AOSP does not supply a VVC software decoder. AV2 v1.0.0 is published; dav2d exists but remains early-stage and is not a production default. IJK/FFmpeg/VLC do not automatically contain or wire every decoder library.
+
+Performance work must profile first, then optimize algorithm hot paths, codec-valid parallel units, maintained SIMD implementations, memory traffic and rendering. Do not skip mandatory normative tools such as ALF/CDEF to force playback; use a lower-complexity rendition or reject the stream if real-time decode is not possible.
+
+See `docs/modules/playback-system.md` section 11 for decoder selection, tests, metrics and evidence boundaries.
