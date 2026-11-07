@@ -216,3 +216,44 @@ Do not ship multiple engines merely to maximize a feature checklist. Each engine
 - Just (Video) Player: https://github.com/moneytoo/Player
 
 Evidence boundary: official docs establish documented feature/support statements, not R700 performance. All product-specific compatibility, UX and stability conclusions remain unmeasured until local fixture and hardware tests.
+
+
+## 10. Next-generation video codec decoder research (2026-11-07)
+
+### Official status checks
+
+- **AV2:** AOMedia's official AV2 specification site lists v1.0.0 as current, dated 28 May 2026. AOMedia announced the release in June 2026. The AV2 standard is therefore no longer merely awaiting finalization.
+- **dav2d:** VideoLAN announced its AV2 decoder on 31 May 2026. The project page describes it as early and explicitly says it should not be used in production. It has ongoing work for correctness, conformance, SIMD, threading and platform support. It is not a mature UTOS dependency.
+- **VVC / H.266:** Fraunhofer's VVdeC is a software decoder implementation supporting Main10. Fraunhofer documents SIMD and multithreading and says its implementation can enable live decoding up to 4Kp60 in its tested context. Do not generalize this to R700 ARM SoCs.
+- **Android VVC:** Android 17 introduces VVC media type / MediaCodec / Codec2 and MP4 extractor support. AOSP explicitly does not provide a VVC software decoder; a vendor must supply the decoder. This is not evidence of VVC support on Android 12 / Toshiba R700.
+- **AV1 / Media3:** AndroidX Media3 defaults to platform decoders but also offers optional software decoder extensions, including AV1, which must be separately built and included. Therefore the claim that Media3 can only use hardware decoding is incorrect.
+- **AV1 software:** VideoLAN's dav1d is a cross-platform AV1 decoder for Android and other platforms, focused on speed and correctness. Actual real-time resolution/FPS depends on the target CPU and thermal envelope.
+
+### Claims that must not be treated as established facts
+
+Do not copy generic claims such as "AV2 is 5x AV1 complexity", "AV2 saves exactly 30%", "AV1 hardware starts at Snapdragon 8 Gen 2", "VVC is always HEVC x2", "VLC is the only all-in-one software decoder SDK", or "all VLC builds include dav1d/dav2d/VVC". These need exact, reproducible, profile- and workload-specific sources. Codec compression gains and decoder complexity vary by content, encoder settings, quality metric, bit depth and implementation.
+
+### Decoder / engine relationship
+
+Media3, IJKPlayer, LibVLC and libmpv are playback frameworks or integration layers, not synonymous with codec implementations. A build may use platform MediaCodec, FFmpeg decoders, dav1d, VVdeC or other libraries only if they are actually integrated, enabled and selected. Inspect exact source revision and build flags. Do not assume IJK or LibVLC automatically ships the newest decoder.
+
+### Optimization areas
+
+1. **Algorithm hot paths:** profile entropy decode, transforms, prediction, interpolation, in-loop filters and film grain before tuning.
+2. **Parallelism:** schedule only codec-defined independent regions; AV1 tile parallelism is useful, but frame/CTU/CU dependencies in other codecs must be preserved.
+3. **SIMD:** prefer maintained NEON/AVX paths from upstream decoders before custom assembly; require bit-exact/conformance tests.
+4. **Memory/bandwidth:** measure reference-frame footprint, cache misses, copies, allocations, stride and memory bandwidth.
+5. **Hardware pipeline:** use the vendor hardware decoder where present; record the actual MediaCodec/Codec2 component and secure status.
+6. **Thermal-aware degradation:** do not disable normative bitstream tools such as ALF or CDEF to make an invalid/incomplete decoder. Prefer a lower-resolution/frame-rate rendition, disable optional post-processing, or clearly report unsupported playback.
+
+### Candidate projects
+
+- AV1: https://code.videolan.org/videolan/dav1d
+- VVC: https://github.com/fraunhoferhhi/vvdec
+- AV2 specification: https://av2.aomedia.org/
+- AV2 reference software: https://github.com/AOMediaCodec/avm
+- AV2 early decoder: https://code.videolan.org/videolan/dav2d
+- Android Media3 supported formats: https://developer.android.com/media/media3/exoplayer/supported-formats
+- Android VVC platform support: https://source.android.com/docs/core/media/vvc
+
+All project adoption requires commit-level maintenance, security, license and Android ABI review. Public code is not a guarantee of product readiness.
