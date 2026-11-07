@@ -23,6 +23,7 @@ Study the strongest ideas across Apple tvOS, Google TV, Android TV/AOSP, Samsung
 - **[UTOS Live TV](docs/modules/live-tv.md):** remote-first live television, M3U/XMLTV ingestion, channel catalog, EPG, playback orchestration, source health, diagnostics and controlled failover.
 - **[Live TV GitHub Ecosystem Research](docs/research/live-tv-ecosystem.md):** curated upstream project and technology research with license and evidence boundaries.
 - **[UTOS AI Agent](docs/modules/ai-agent.md):** natural-language intent, bounded task planning and controlled orchestration of approved UTOS services. No unrestricted system privileges.
+- **[Reliability Engineering Baseline](docs/engineering/reliability-engineering.md):** incident classification, resilience controls, recovery, measurement and release gates.
 - **App Library:** separate proposed domain module; shared through explicit service contracts.
 
 These are proposed specifications, not implemented or device-validated features. See [System Architecture](docs/architecture/system-architecture.md) and [Roadmap](ROADMAP.md).
