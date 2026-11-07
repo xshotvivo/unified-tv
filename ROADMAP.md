@@ -78,3 +78,14 @@ A milestone is complete only when requirements, test evidence, known limitations
 - [ ] Add opt-in A2 retry/failover among preconfigured eligible sources, with bounded retries and post-action playback verification.
 - [ ] Add user-confirmed persistent changes, audit log, rollback and sanitized reports.
 - [ ] Threat-model playlist ingestion, SSRF, redirects, decompression bombs, credential handling and prompt injection from untrusted feed metadata.
+
+
+## Phase 3B — Playback system and quality
+- [ ] Add engine-neutral PlaybackEngine, PlaybackSession, PlaybackCapabilities, PlaybackEvent and PlaybackMetrics contracts.
+- [ ] Implement Media3 as the only first-pass engine and build a local HLS/DASH/progressive regression fixture corpus.
+- [ ] Design remote-first player HUD, channel zapping, track selection, subtitle controls and honest live-edge behavior.
+- [ ] Capture first-frame, rebuffer, decoder, track, lifecycle, memory and thermal metrics.
+- [ ] Classify failures before retry/fallback; do not use engine switching to mask source/network/auth failures.
+- [ ] Review LibVLC license/dependency/build footprint and run an isolated adapter trial only if Media3 gaps are reproducible.
+- [ ] Keep libmpv research-only and IJKPlayer on hold pending maintenance/security review.
+- [ ] Compare engines on identical R700 firmware, fixtures, network and repeatable test procedure before any performance claim.
