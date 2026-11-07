@@ -63,3 +63,18 @@ Planning baseline only; not a promise of delivery dates.
 
 ## Release gates
 A milestone is complete only when requirements, test evidence, known limitations, security review, recovery plan and release notes are recorded. A specification or successful build is not proof of reliable playback.
+
+
+## Phase 3A — Source intelligence and AI-assisted operations
+- [ ] Evaluate Guovin IPTV-API as an isolated source aggregation/measurement worker; review exact license and dependencies before adoption.
+- [ ] Define canonical source/channel schema, provenance and per-channel multi-candidate retention.
+- [ ] Implement authorized multi-source ingestion and channel alias normalization.
+- [ ] Implement bounded latency/throughput sampling and resolution/frame-rate metadata extraction.
+- [ ] Implement source state machine: discovered → reachable → media-valid → first-frame → sustained-sample, plus typed failure states.
+- [ ] Implement M3U/TXT/API exports and transactional scheduled refresh with last-known-good rollback.
+- [ ] Implement EPG merge, freshness, timezone mapping and unmapped-channel diagnostics.
+- [ ] Build incident model and deterministic root-cause rules before adding AI.
+- [ ] Add AI A0/A1 diagnosis/reporting; keep all mutations disabled by default.
+- [ ] Add opt-in A2 retry/failover among preconfigured eligible sources, with bounded retries and post-action playback verification.
+- [ ] Add user-confirmed persistent changes, audit log, rollback and sanitized reports.
+- [ ] Threat-model playlist ingestion, SSRF, redirects, decompression bombs, credential handling and prompt injection from untrusted feed metadata.
