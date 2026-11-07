@@ -89,3 +89,14 @@ A milestone is complete only when requirements, test evidence, known limitations
 - [ ] Review LibVLC license/dependency/build footprint and run an isolated adapter trial only if Media3 gaps are reproducible.
 - [ ] Keep libmpv research-only and IJKPlayer on hold pending maintenance/security review.
 - [ ] Compare engines on identical R700 firmware, fixtures, network and repeatable test procedure before any performance claim.
+
+
+## Phase 3C — Codec compatibility and decode performance
+- [ ] Capture Toshiba R700 MediaCodec/Codec2 decoder inventory and supported profiles/levels.
+- [ ] Build a local codec fixture matrix for H.264, HEVC, VP9 and AV1; include profile, bit depth, chroma, resolution, frame rate and HDR metadata.
+- [ ] Verify Media3 platform decoder selection and optional AV1 software extension separately.
+- [ ] Measure sustained FPS, dropped frames, first frame, A/V sync, CPU, RAM, temperature and power.
+- [ ] Research VVdeC only as a VVC software candidate; do not assume 4K real-time on R700.
+- [ ] Track AV2 v1.0.0, AVM and dav2d conformance/performance; keep AV2 out of production defaults until hardware/software maturity is proven.
+- [ ] Do not disable mandatory codec tools to force playback; use compatible renditions or report unsupported.
+- [ ] Reassess codec support, decoder libraries, security and license state during weekly ecosystem reviews.
