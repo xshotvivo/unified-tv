@@ -57,6 +57,9 @@ Planning baseline only; not a promise of delivery dates.
 - [ ] Validate cancellation, failure recovery, privacy and degraded/offline behavior.
 
 ## Phase 7 — Platform services and portability
+- [ ] Maintain cross-platform capability matrix and compare tvOS-native apps, Android TV launchers/players, and UTOS equivalents; use docs/research/apple-tv-tvos-ecosystem.md as the research baseline.
+- [ ] Revalidate Apple TV app availability by storefront, OS version and distribution path; distinguish App Store, TestFlight, self-built/private-API and Android-only tools.
+- [ ] Map useful tvOS interaction/media/ambient patterns into UTOS requirements and tests without assuming platform/API parity or copying proprietary implementations.
 - [ ] Capability registry and platform adapter interfaces.
 - [ ] Configuration, backup/restore and diagnostics.
 - [ ] Update channel, signed artifacts, staged rollout and rollback design.
