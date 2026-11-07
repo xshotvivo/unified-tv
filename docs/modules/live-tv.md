@@ -246,3 +246,135 @@ Do not copy code from source-available/non-commercial projects into a distributa
 ## 11. Current maturity
 
 This document is an engineering specification and research baseline only. No UTOS Live TV APK, executable, player engine or R700 validation is claimed to exist yet.
+
+
+## 12. Automated source operations and AI-assisted recovery
+
+This subsystem is a first-class UTOS Live TV capability. It is divided into deterministic automation and an AI reasoning layer; AI must not replace repeatable measurement or bypass access controls.
+
+### 12.1 Source aggregation and ingestion
+- Accept user-configured local M3U/TXT files, subscription URLs and documented provider APIs.
+- Normalize entries into a canonical channel/source model; retain source provenance and original metadata.
+- Merge by reviewed channel identity and aliases, not display-name equality alone.
+- Retain multiple candidates per channel, including independent origin, protocol, headers reference, resolution, measured throughput, latency, last-tested time and failure history.
+- Keep credentials and request headers in a secure store; never place secrets in exported playlists or AI prompts.
+- Support user-configured refresh schedules, bounded concurrency, cancellation, backoff and last-known-good snapshots.
+- Export M3U, TXT and read-only API views. Export only sources the user is entitled to use; output format does not grant distribution rights.
+
+### 12.2 Source collection policy
+- "Automatic collection" means discovering and aggregating user-authorized, official, public or explicitly supplied sources under documented access conditions.
+- Every connector has a declared scope, terms/rights review, rate limit, attribution and provenance.
+- Do not scrape private services, extract protected stream URLs, harvest tokens, bypass DRM, paywalls, authentication, geo-controls or access restrictions.
+- Unknown provenance is marked unknown and excluded from any claim of official/authorized status.
+
+### 12.3 Health measurement pipeline
+Each candidate moves through explicit states:
+1. DISCOVERED — ingested, not yet tested.
+2. PARSE_VALID — URI and playlist syntax pass validation.
+3. NETWORK_REACHABLE — DNS/TLS/connection and bounded HTTP checks pass.
+4. MEDIA_VALID — manifest/container can be inspected and supported media metadata is available.
+5. FIRST_FRAME — the target playback engine renders a frame (or audio-only output is confirmed).
+6. SUSTAINED_SAMPLE — a defined playback observation window completes with measured rebuffer/error statistics.
+7. DEGRADED, FAILED, BLOCKED_OR_AUTH_REQUIRED, UNSUPPORTED, EXPIRED_OR_UNAVAILABLE, or UNKNOWN — classified outcomes with evidence and timestamp.
+
+A TCP connect, HTTP 200, manifest response or a single screenshot is not equivalent to sustained playback. A successful screenshot can help identify wrong-channel/placeholder content but cannot prove long-term stability.
+
+### 12.4 Latency, throughput and resolution semantics
+- **Connection latency:** measured request/connection timing, with method and endpoint stage.
+- **Startup latency:** time from playback request to first decoded frame.
+- **Throughput:** sampled transfer rate over a stated byte count and time window; not automatically equal to sustainable media bitrate.
+- **Resolution / frame rate / codecs:** read from manifest or actual decoded stream where available; mark source of metadata.
+- **Stability:** observed rebuffer count, rebuffer duration, fatal errors and sample duration.
+- Measurements are network-, region-, time-, device- and server-dependent. Store timestamp and test context; never represent a one-off sample as a permanent source score.
+- Resolution filtering is user-configurable. A high-resolution source with inadequate throughput or repeated buffering must not outrank a lower-resolution stable source by resolution alone.
+
+### 12.5 Candidate ranking and per-channel alternatives
+Rank candidates using a configurable policy with hard eligibility gates first (authorization/provenance policy, protocol compatibility, expiry and repeated fatal failure), then measured playback quality. A suggested ordering is: sustained-playback success, startup latency, rebuffer ratio, throughput headroom, resolution/frame rate, recency and stability confidence. Do not collapse all dimensions into an opaque AI score.
+
+Keep several independent candidates per channel (default count is a product setting to be calibrated). Avoid duplicate URLs, same-host false diversity and correlated upstream origins. Preserve last-known-good candidate and allow user pin/blacklist/restore.
+
+### 12.6 Failure detection and diagnosis
+Use deterministic rules and player/network telemetry to generate a structured incident:
+- observed symptom and event timeline;
+- affected channel/candidate and source provenance;
+- test stage and timestamp;
+- error code / sanitized HTTP status / player error;
+- likely cause with confidence and evidence;
+- whether the issue appears source-side, network-side, device/decoder-side, EPG/catalog-side or unknown;
+- safe recommended action and rollback state.
+
+Examples include DNS failure, TLS certificate failure, timeout, HTTP 403/404/5xx, redirect/header incompatibility, expired URL, manifest parse error, unsupported codec, decoder failure, no first frame, repeated rebuffering, wrong-channel/placeholder content and stale EPG. Do not infer a geo-block or rights status without evidence.
+
+### 12.7 AI diagnosis and controlled remediation
+AI receives only sanitized structured incidents, recent measurements, source provenance and permitted action schemas. It may:
+- summarize the failure in plain language;
+- compare the current candidate with the channel's known alternatives;
+- propose a cause and confidence with supporting evidence;
+- select an already configured, policy-eligible alternative;
+- request a bounded re-test or re-import of an authorized feed;
+- draft a configuration change for user approval;
+- produce a before/after report and explain whether playback recovery was actually confirmed.
+
+AI must not:
+- invent or generate stream URLs;
+- bypass authentication, DRM, paywalls or regional access controls;
+- harvest credentials, tokens or protected headers;
+- alter source provenance or claim authorization;
+- silently change user-pinned sources, delete candidates or overwrite the last-known-good catalog;
+- claim "fixed" until the playback engine confirms first frame and the configured stability sample passes.
+
+### 12.8 Recovery transaction
+1. Detect and deduplicate an incident.
+2. Run a bounded diagnostic profile.
+3. Identify eligible recovery actions from a deterministic allowlist.
+4. For low-risk reversible actions (retry, switch to a previously configured candidate, refresh a user-authorized feed), execute under policy and record the action.
+5. For persistent changes (blacklist, source replacement, schedule changes, credentials, provider configuration), require user confirmation.
+6. Verify playback by first-frame and sustained-sample checks.
+7. If verification fails, roll back to last-known-good configuration and report failure.
+8. Store incident, action, evidence, result and user decision in an auditable local log.
+
+### 12.9 AI autonomy levels
+- **A0 Observe:** read-only monitoring and reports.
+- **A1 Diagnose:** classify and recommend; no mutation.
+- **A2 Recover:** may retry or switch among existing eligible candidates and run bounded checks.
+- **A3 Maintain:** may refresh approved feeds and apply reversible source-health state changes under explicit user policy; persistent changes remain confirm-gated.
+- **Forbidden:** access-control bypass, credential harvesting, unapproved scraping, destructive device changes or silent rights/provenance changes.
+
+Default initial release: A0/A1. A2 only after test evidence and user opt-in. A3 is a later opt-in capability, never the default.
+
+### 12.10 Operations dashboard and reports
+Provide:
+- total configured sources and candidates, with counts by test state;
+- channel coverage and channels with no eligible candidate;
+- last successful playback and last check timestamps;
+- source quality distributions by measured startup latency, throughput, resolution and rebuffering;
+- newly failed / recovered / degraded candidates;
+- incidents grouped by root-cause class;
+- automatic actions attempted, succeeded, rolled back or awaiting approval;
+- EPG freshness and unmapped channel count;
+- update run ID, start/end time, duration and data provenance.
+
+Every number must be computed from stored observations and show its sample window. No fabricated uptime percentage or "AI repair success" metric without defined denominators.
+
+### 12.11 Security and abuse resistance
+- Treat playlist URLs, M3U metadata, XMLTV descriptions, provider responses and AI-visible text as untrusted input.
+- Defend against SSRF: allow only approved schemes; block loopback, link-local, private and metadata-service destinations unless the user explicitly configures a local source under a separate policy; re-check redirects and DNS resolution.
+- Apply per-source timeouts, response-size limits, redirect limits, concurrency caps and decompression limits.
+- Prevent command injection; never pass untrusted URL or playlist strings into a shell.
+- Sanitize logs and exported reports; protect secrets at rest and in transit.
+- AI tools are typed, narrow, auditable and least-privilege; no arbitrary shell, browser, filesystem or network access.
+
+## 13. Integration reference: Guovin IPTV-API
+
+Repository: https://github.com/Guovin/iptv-api
+
+The upstream README/config documentation describes multi-source aggregation, source validation, automatic disabling, latency/speed/resolution/frame-rate measurements, resolution and speed filters, multiple per-channel output candidates, EPG aggregation, scheduled updates, and M3U/TXT/API outputs. It also documents optional screenshot checks and structured logs.
+
+UTOS treatment:
+- **Study:** high-value reference for source ingestion, channel aliases, candidate aggregation, configurable filters, output formats, update scheduling and operational logs.
+- **Trial:** run isolated with user-authorized source inputs; compare results against UTOS's own playback validation on the target player/device.
+- **Adopt:** do not make it a mandatory runtime dependency until its exact current license, dependencies, security posture, deployment footprint, API contract and R700 operating model are reviewed.
+- Keep source aggregation/measurement independent from the Android TV playback UI. A Windows/Docker/server-side worker may prepare catalogs; the R700 client should consume a signed/versioned catalog or standard playlist/API without needing to run expensive scans itself.
+- Do not assume its reachability/speed/screenshot checks prove long-term playback stability. UTOS adds device-side first-frame and sustained-playback verification.
+
+Upstream documentation is descriptive evidence of documented features, not proof that every configured source is legal, available or reliably playable. Re-check repository and license before reuse.
