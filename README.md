@@ -22,6 +22,7 @@ Study the strongest ideas across Apple tvOS, Google TV, Android TV/AOSP, Samsung
 - **[UTOS Media Center](docs/modules/media-center.md):** unified movie/series discovery, metadata, user library and playback handoff. Optional providers such as LibreTV remain isolated and replaceable.
 - **[UTOS Live TV](docs/modules/live-tv.md):** remote-first live television, M3U/XMLTV ingestion, channel catalog, EPG, playback orchestration, source health, diagnostics and controlled failover.
 - **[Live TV GitHub Ecosystem Research](docs/research/live-tv-ecosystem.md):** curated upstream project and technology research with license and evidence boundaries.
+- **[Apple TV / tvOS Ecosystem Research](docs/research/apple-tv-tvos-ecosystem.md):** five-category Apple TV app map, Android TV comparison, distribution boundaries and UTOS learning backlog.
 - **[UTOS AI Agent](docs/modules/ai-agent.md):** natural-language intent, bounded task planning and controlled orchestration of approved UTOS services. No unrestricted system privileges.
 - **[Reliability Engineering Baseline](docs/engineering/reliability-engineering.md):** incident classification, resilience controls, recovery, measurement and release gates.
 - **App Library:** separate proposed domain module; shared through explicit service contracts.
