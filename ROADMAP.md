@@ -7,6 +7,7 @@ Planning baseline only; not a promise of delivery dates.
 - [x] Define initial architecture and research taxonomy.
 - [ ] Confirm governance, license and contribution policy.
 - [ ] Record exact R700 model suffix, firmware/build, SoC, RAM/storage and developer access.
+- [ ] Define module ownership, interface versioning and compatibility policy.
 
 ## Phase 1 — R700 capability and risk baseline
 - [ ] Inventory launcher/default-home behavior, package manager, permissions and ADB availability.
@@ -21,15 +22,24 @@ Planning baseline only; not a promise of delivery dates.
 - [ ] Settings and device-control surfaces limited to supported APIs.
 - [ ] Measure startup, frame pacing, memory, input latency and navigation errors.
 
-## Phase 3 — Modular services
+## Phase 3 — Independent domain modules
+- [ ] Define and test stable contracts for Media Center, Live TV and App Library.
+- [ ] Evaluate LibreTV as an optional isolated adapter after license, security and content-source review.
+- [ ] Validate remote navigation, playback handoff, codecs, subtitles and recovery on R700.
+- [ ] Add local library, watchlist and viewing-progress behavior with user controls.
+
+## Phase 4 — UTOS AI Agent
+- [ ] Complete threat model, data-flow map, permission matrix and tool registry.
+- [ ] Build offline/read-only intent and search prototype.
+- [ ] Add allowlisted app launch and low-risk controls.
+- [ ] Add confirmation-gated persistent actions only after security and usability review.
+- [ ] Validate cancellation, failure recovery, privacy and degraded/offline behavior.
+
+## Phase 5 — Platform services and portability
 - [ ] Capability registry and platform adapter interfaces.
 - [ ] Configuration, backup/restore and diagnostics.
 - [ ] Update channel, signed artifacts, staged rollout and rollback design.
-- [ ] Optional content providers and player integrations with explicit source/legal checks.
-
-## Phase 4 — Portability
 - [ ] Capability matrix for Android TV/AOSP, Tizen, webOS, Roku and tvOS.
-- [ ] Identify shared elements (design system, metadata, state models, tests) versus platform-specific work.
 - [ ] Validate each target on real hardware or vendor-supported emulator before claiming support.
 
 ## Release gates
