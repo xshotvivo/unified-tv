@@ -19,6 +19,8 @@ Study the strongest ideas across Apple tvOS, Google TV, Android TV/AOSP, Samsung
 7. Portable: isolate platform differences behind adapters; never assume vendor API parity.
 
 ## Independent product modules
+- **[NAS & Home Media Server](docs/modules/nas-home-media-server.md):** vendor-neutral home storage, backup/recovery, Docker, media servers, metadata, TV clients and cross-device access.
+- **[NAS Ecosystem Research Register](docs/research/nas-ecosystem.md):** FygoOS/fnOS, TrueNAS, OpenMediaVault, media-server candidates, metadata tools and adoption gates.
 - **[UTOS Media Center](docs/modules/media-center.md):** unified movie/series discovery, metadata, user library and playback handoff. Optional providers such as LibreTV remain isolated and replaceable.
 - **[UTOS Live TV](docs/modules/live-tv.md):** remote-first live television, M3U/XMLTV ingestion, channel catalog, EPG, playback orchestration, source health, diagnostics and controlled failover.
 - **[Live TV GitHub Ecosystem Research](docs/research/live-tv-ecosystem.md):** curated upstream project and technology research with license and evidence boundaries.
