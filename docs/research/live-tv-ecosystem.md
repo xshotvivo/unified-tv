@@ -126,3 +126,32 @@ No dependency versions are frozen by this document. Use current stable versions 
 - iptv-org projects: https://github.com/iptv-org/iptv ; https://github.com/iptv-org/epg ; https://github.com/iptv-org/database ; https://github.com/iptv-org/awesome-iptv
 
 **Evidence discipline:** repository existence and visible upstream descriptions are verified discovery facts; feature descriptions remain upstream claims until code review/build/test; R700 compatibility remains unknown; legal authorization of any stream remains separately unverified.
+
+
+## 8. High-priority source aggregation reference: Guovin IPTV-API
+
+Canonical repository: https://github.com/Guovin/iptv-api
+Official documentation: https://github.com/Guovin/iptv-api/blob/master/README.md and https://github.com/Guovin/iptv-api/blob/master/docs/config.md
+Checked: 2026-11-07.
+
+The current upstream README documents:
+- multiple local and subscribed source aggregation;
+- channel aliases and matching;
+- availability validation and optional automatic disabling;
+- latency, throughput, resolution and frame-rate measurement;
+- resolution/speed filters and sorting;
+- multiple output candidates per channel;
+- EPG aggregation and logos;
+- M3U, TXT and HTTP API output;
+- scheduled/interval updates across GUI, CLI and Docker modes;
+- logs, statistics, cached results and optional stream screenshots.
+
+### UTOS assessment
+- **Study priority: High.** The project provides a concrete reference for the source-ingestion/update pipeline and configurable result generation.
+- **Trial priority: High, isolated.** Use only user-authorized inputs and compare its test outputs with actual playback results on the target player/device.
+- **Adoption: Pending.** Before dependency or code reuse, inspect the exact LICENSE, dependency licenses, security posture, API stability, runtime footprint and maintenance status. Do not infer license permissions from a public repository.
+- **Architectural boundary:** keep aggregation and scheduled source testing in a worker/service layer; keep Android TV playback and user interaction in UTOS Live TV. The R700 should not need to run full-scale network scans.
+- **Critical gap to close:** URL reachability, sampled transfer speed, manifest metadata or a screenshot do not prove sustained successful playback. UTOS must add target-engine first-frame and sustained-playback tests, event-based incident diagnosis, controlled failover and post-recovery verification.
+- **AI addition:** AI should explain structured evidence, propose likely causes and invoke only allowlisted reversible actions. It must not invent URLs, bypass access controls or claim recovery without verified playback.
+
+Evidence boundary: these are features described by upstream documentation; independent code review, license review and R700 testing remain pending.
