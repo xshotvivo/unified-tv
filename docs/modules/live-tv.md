@@ -68,7 +68,7 @@ Do not use a single green "online" badge for all of these states.
 
 ### 4.2 Playback
 - Primary candidate: AndroidX Media3 / ExoPlayer for Android-native HLS, DASH and supported progressive/live formats.
-- Secondary candidate: libmpv/FFmpeg adapter for formats or stream behavior not handled by the primary engine, subject to ABI, device decoder, package size, security and license review.
+- Optional compatibility candidate: libVLC adapter for confirmed Media3 compatibility gaps, subject to ABI, device decoder, package size, security, maintenance and LGPL/compliance review. libmpv remains a research candidate, not a first-release dependency.
 - A common PlaybackEngine contract isolates UI and domain logic from either engine.
 - Engine choice and fallback policy must be evidence-based on R700; do not assume two engines always improve reliability.
 - Capture player analytics: load start, manifest/playlist events, first frame, rebuffer start/end, dropped frames where available, audio/video format, decoder, playback error and release lifecycle.
@@ -155,7 +155,7 @@ No fabricated signal strength, bitrate, resolution, channel uptime, viewer count
 - **catalog-ingest:** streaming M3U/M3U8 and XMLTV parsers, validation and normalization.
 - **source-registry:** provenance, source policy, candidate grouping and user configuration.
 - **epg-service:** guide sync, channel mapping, rolling retention and queries.
-- **playback-core:** PlaybackEngine abstraction, Media3 adapter, optional libmpv adapter, session lifecycle.
+- **playback-core:** engine-neutral PlaybackEngine abstraction, Media3 adapter, optional LibVLC adapter only after evidence gate, session lifecycle and metrics.
 - **health-monitor:** bounded probes, playback observation, error taxonomy and health history.
 - **recovery-orchestrator:** retry budget, backoff, candidate failover, cooldown and cancellation.
 - **local-data:** Room database, migrations, indexes, paging and backup/restore.
@@ -183,7 +183,7 @@ All interfaces need versioning, cancellation, bounded timeouts and typed error r
 
 - Language: Kotlin.
 - TV UI: Jetpack Compose for TV, with Android Views interoperability only where required.
-- Playback: AndroidX Media3 first; libmpv as optional secondary adapter after device and license validation.
+- Playback: AndroidX Media3 as the first-release primary engine; libVLC only as an optional secondary adapter after measured gap analysis and legal/security/device validation. libmpv remains research-only until separately justified.
 - Persistence: Room; DataStore for preferences; WorkManager only for permitted, bounded background refresh.
 - Networking: OkHttp or platform networking APIs with explicit timeouts, redirect policy and TLS validation.
 - Parsing: streaming M3U and XMLTV parser; avoid loading full large feeds into memory.
@@ -378,3 +378,95 @@ UTOS treatment:
 - Do not assume its reachability/speed/screenshot checks prove long-term playback stability. UTOS adds device-side first-frame and sustained-playback verification.
 
 Upstream documentation is descriptive evidence of documented features, not proof that every configured source is legal, available or reliably playable. Re-check repository and license before reuse.
+
+
+## 14. Playback engine strategy and product-quality requirements
+
+### 14.1 Product apps versus playback engines
+
+UTOS separates two categories:
+
+- **End-user player applications:** PotPlayer, mpv-android, VLC for Android, Just (Video) Player, Nova Video Player, Kodi, MX Player, IINA and similar products. Study their user experience, controls, subtitle/audio handling, library workflows and device compatibility. They are not interchangeable SDKs.
+- **Embeddable playback engines / SDKs:** AndroidX Media3 (ExoPlayer), LibVLC, libmpv and FFmpeg-based components. These are implementation choices behind UTOS playback contracts. FFmpeg is a multimedia framework/library collection, not by itself a complete player UI or product.
+
+PC and iOS products are useful comparative references, but the first implementation and acceptance target remain Android TV / Toshiba R700. Do not let desktop feature lists expand the first-release scope.
+
+### 14.2 Engine decision
+
+| Candidate | UTOS disposition | Reason / boundary |
+|---|---|---|
+| AndroidX Media3 / ExoPlayer | Primary, first implementation | Android-native integration, HLS/DASH and MediaDrm support, analytics and lifecycle APIs; actual codec support still depends on formats, Android version and device decoders. |
+| LibVLC | Conditional secondary adapter | Broad format/protocol coverage and network filesystem features; add only for reproducible Media3 gaps that matter to users. Review LGPL obligations for LibVLC and the wider VLC application GPL terms separately. |
+| libmpv | Research candidate | Strong playback controls, rendering and subtitle capabilities; native integration/ABI/build/maintenance burden needs a dedicated trial. |
+| IJKPlayer | Hold / legacy reference | Do not select as a new primary engine based on historical popularity. Verify upstream maintenance, exact FFmpeg revision, security fixes, Android build compatibility and license obligations before any reconsideration. |
+| FFmpeg directly | Not a standalone player choice | Consider only as a narrowly scoped extractor/decoder component when a concrete requirement justifies the integration and compliance burden. |
+
+No engine is declared universally superior. Engine selection is per-device and per-stream evidence, not brand preference.
+
+### 14.3 Unified playback contract
+
+The UI and Live TV domain must depend only on a versioned engine-neutral contract:
+
+- `PlaybackEngine`: capabilities, create session, prepare, play, pause, seek, stop, release.
+- `PlaybackSession`: lifecycle, media item, surface attachment, track selection and playback state.
+- `PlaybackCapabilities`: protocols, containers, codecs, HDR/audio features and known device limitations.
+- `PlaybackEvent`: state changes, first frame, buffering, format/decoder changes, recoverable and fatal errors.
+- `PlaybackMetrics`: time-to-first-frame, rebuffer count/duration, dropped frames where exposed, decoder, resolution and session duration.
+- `TrackCatalog`: audio, subtitle and video tracks with stable IDs and language/role metadata.
+- `EngineSelector`: deterministic policy based on format, DRM requirement, device capability, prior measured compatibility and user override.
+
+All engine calls must support cancellation, bounded timeouts, explicit release and sanitized typed errors. Engine-specific types must not leak into UI/domain models.
+
+### 14.4 Playback UX requirements
+
+The player experience must be designed as a product, not a thin wrapper around a video surface:
+
+1. Fast channel zapping, with measured selection-to-first-frame time and no unbounded preloading.
+2. Stable D-pad behavior: channel up/down, guide, OK, Back and media keys; focus must return predictably.
+3. Low-occlusion HUD with channel, programme, source, playback state and timeout behavior.
+4. Audio-track and subtitle selection, subtitle delay where supported, aspect ratio and scaling controls.
+5. Clear controls for live edge / timeshift only when the source and engine support them; never display fake seek capability.
+6. Resume/reconnect behavior that distinguishes temporary network interruption, source failure and decoder failure.
+7. Optional advanced diagnostics separated from normal viewing.
+8. No forced ads, autoplay recommendations, account requirement or telemetry by default.
+
+### 14.5 Engine-selection and fallback policy
+
+- Start with Media3 for every supported test fixture and user-configured stream.
+- Classify the failure before considering another engine: unsupported manifest/container/codec, decoder initialization, DRM/authorization, network/source failure, malformed input or unknown.
+- A second engine is eligible only for an engine-specific compatibility failure. Do not switch engines to mask a dead URL, expired credential, network outage or access restriction.
+- For a confirmed engine-specific gap, try LibVLC only if it supports the required feature on the target device and passes the same playback verification.
+- Do not silently switch DRM sessions, credentials, request headers or protected content between engines.
+- Record the engine decision and reason; allow a user override and retain a safe default.
+- Avoid repeatedly switching engines during one session. Use cooldown and bounded retries.
+
+### 14.6 Required comparison tests
+
+Build a repeatable local fixture corpus before evaluating public streams:
+
+- HLS MPEG-TS and fMP4/CMAF; live playlist refresh and discontinuities.
+- DASH clear and DRM test vectors only where lawful test licenses are available.
+- MPEG-TS over supported transport, progressive MP4/MKV and representative audio/subtitle tracks.
+- H.264, HEVC, VP9 and AV1 only where the R700 hardware/software decoder reports support.
+- Unsupported codec, malformed manifest, truncated segment, slow network, DNS loss, server timeout and abrupt stream termination.
+- HDR / audio passthrough only where the R700 hardware, firmware, display and sink chain expose those capabilities.
+
+For each engine, record build/version, ABI, APK size delta, RAM, CPU, thermal behavior, decoder path, first-frame time, rebuffer ratio, dropped frames, audio sync, track behavior, crash/ANR and 2-hour stability. Compare on the same R700, firmware, network, source fixture and test order. No performance winner is declared before repeated measurements.
+
+### 14.7 Licensing and supply-chain gate
+
+Before shipping any native engine:
+- inspect the exact source commit and license files;
+- enumerate bundled and transitive FFmpeg/codecs dependencies and build flags;
+- retain required copyright, license and notices;
+- assess dynamic/static linking and source-offer obligations with qualified review;
+- generate an SBOM and vulnerability inventory;
+- define update ownership and response time for security fixes.
+
+Public source availability does not grant reuse rights. This section is a design decision, not a legal opinion or completed compliance review.
+
+### 14.8 Current status
+
+**Decision status:** architecture direction accepted for planning: Media3 primary; LibVLC conditional; libmpv research-only; IJKPlayer held.
+
+**Implementation status:** not implemented. No engine has been benchmarked on Toshiba R700. No APK, compatibility result, speed advantage or reliability claim is made.
