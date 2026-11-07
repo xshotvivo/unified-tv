@@ -1,4 +1,4 @@
-# UTOS System Architecture — Draft 0.2
+# UTOS System Architecture — Draft 0.3
 
 **Status:** Proposed; not implemented or validated.
 **Primary constraint:** R700 first phase runs on its existing Android 12 firmware unless a separately approved system-image program is created.
@@ -18,11 +18,14 @@
 ### UTOS Media Center
 Owns media discovery, normalized metadata, user library and playback handoff. It integrates optional providers such as LibreTV through isolated adapters. It does not own the home screen, player engine, content rights or DRM bypass. See [Media Center](../modules/media-center.md).
 
+### UTOS Live TV
+Owns channel cataloguing, M3U/XMLTV ingestion, EPG mapping, source provenance, live playback orchestration, health diagnostics, bounded retry and controlled failover. It is a player and source-management module, not a broadcaster or content-rights provider. It reports truthful playback and source states and exposes typed service contracts to the home screen and AI Agent. See [Live TV](../modules/live-tv.md) and [GitHub ecosystem research](../research/live-tv-ecosystem.md).
+
 ### UTOS AI Agent
 Owns intent understanding, bounded planning, tool orchestration, consent, user-controlled memory and audit/recovery. It calls Media Center, Live TV, App Library and Device Control through typed service contracts. It does not own those services or receive unrestricted system privileges. See [AI Agent](../modules/ai-agent.md).
 
-### Live TV and App Library
-Remain separate domain modules. Media Center may link to Live TV metadata and playback through contracts; the AI Agent may orchestrate either module only through the tool gateway.
+### App Library
+Remains a separate domain module for installed-app discovery, categories, favorites and launch handoff. It must not own or duplicate Live TV or Media Center catalogs.
 
 ## 3. Dependency direction
 
@@ -34,6 +37,9 @@ Experience → domain modules → capability interfaces → platform adapters. A
 - DeviceControl: exposes only controls permitted by the platform and user authorization.
 - ContentProvider: supplies normalized metadata; provider failures cannot block the home screen.
 - PlaybackHandoff: delegates playback to a compatible player/app; never bypasses DRM or access controls.
+- LiveChannelService: exposes normalized channel/program search and authorized channel selection.
+- PlaybackSessionService: exposes current session state and supported controls without exposing credentials.
+- SourceDiagnosticsService: returns sanitized source/playback diagnostics; secrets and raw authorization material are never exposed to the AI Agent.
 - ConfigurationStore: versioned settings with schema migration and export/restore.
 - UpdateManager: verifies origin, signature and integrity; supports staged deployment and rollback where host permits.
 - AgentToolGateway: typed allowlist of service operations, with policy checks, consent gates and auditable results.
