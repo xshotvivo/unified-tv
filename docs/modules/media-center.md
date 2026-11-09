@@ -66,3 +66,15 @@ Use evidence labels: A = authoritative source verified; B = measured on target h
 - No dependency on one provider or player.
 - No claim of native Android TV support until verified on the target firmware.
 - No cloud account or telemetry requirement for basic local library functions.
+
+
+## 8. Online Video Aggregation boundary
+
+LunaTV/MoonTV-style services are optional external provider/front-end adapters, not local media servers or content providers. They must remain isolated from the local NAS library, Live TV channel catalog and shared playback engine.
+
+- LunaTV upstream states CC BY-NC-SA; its GitHub license metadata was not identified as a standard SPDX license. Do not reuse or redistribute without reviewing the exact license and all assets/dependencies.
+- Stardm0/MoonTV declares MIT and states it self-maintains from LunaTV 2.0.1. Its fork status and upstream provenance mean the MIT declaration alone does not settle every inherited component's rights.
+- No built-in sources, content rights or region authorization are assumed. The user must configure lawful, authorized sources.
+- Prefer private LAN/VPN deployment, explicit authentication, persistent data backup and sanitized diagnostics. Do not bypass DRM, paid access or authentication.
+
+**Status:** Study/Hold. No service deployment, content-source configuration or R700 compatibility test is claimed.

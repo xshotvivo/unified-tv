@@ -102,3 +102,27 @@ Use A for independently authoritative documentation or verified source code; B f
 ## Change log
 
 - 2026-11-07: Initial architecture and research baseline created. No hardware deployment or R700 test is claimed.
+
+
+## 12. Current product/version findings — 2026-11-09
+
+### Platform status
+- TrueNAS 25.10.8 is the current checked stable 25.10 maintenance release (2026-11-05). TrueNAS 27-RC.1 is an early release and is excluded from production use.
+- OpenMediaVault core 8.6.1-1 is dated 2026-10-30; its Compose plugin 8.2.5 is dated 2026-10-25. Track OS and plugin versions separately.
+- FygoOS official materials list x86/ARM and ZFS/ext4/Btrfs. Its free tier is limited to 3 users and 4 storage devices; paid tiers expand limits. Fygo TV is installed on the NAS from its App Center, has its own folder access scope and can prefer local NFO/images. It is not a confirmed Android TV client.
+- FygoConnect requires a Fygo account; relay traffic may be speed-limited; P2P direct connection depends on IPv6. The public source-code page lists Linux kernel and Samba, not a complete OS source release. Privacy-policy statements about online services do not establish all offline OS telemetry behavior.
+
+### Media server
+- Jellyfin 12.4 was published 2026-10-26 and is a minor release within 12.x. The major migration boundary is entering 12.0 from an older major line; the 12.4 release note still requires a full backup before upgrading. Use a clone, full database/config/metadata backup, plugin review, migration test and restore test before any production upgrade.
+- Swiftfin is a first-party Jellyfin tvOS client, but its current README carries a Jellyfin 12.0 badge and requires tvOS 26+. Compatibility with server 12.4 and any R700 Android TV client remains U.
+- Plex and Emby exact current stable version numbers were not verified in this review; no version is guessed.
+
+### Cloud-drive boundary
+OpenList, AList and rclone belong to the separate [Cloud Drive & Resource Sharing](cloud-drive-resource-sharing.md) module. A remote mount is not a backup and must not be counted as an independent 3-2-1 copy.
+
+### Release gate
+No NAS platform is selected. No hardware, disk layout, filesystem, backup target, Fygo TV client, Jellyfin migration or R700 playback path was installed or tested. Restore, upgrade/rollback, permissions and workload tests remain mandatory before Adopt.
+
+## Change log
+
+- 2026-11-09: Updated TrueNAS, OpenMediaVault, FygoOS/Fygo TV and Jellyfin baselines; clarified that Fygo TV is NAS-side in checked docs and no R700 client compatibility is established. No installation or test is claimed.

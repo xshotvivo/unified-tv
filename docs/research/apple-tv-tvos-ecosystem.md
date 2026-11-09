@@ -1,7 +1,7 @@
 # Apple TV / tvOS Ecosystem Research
 
 **Status:** Research baseline; not an implementation or endorsement list  
-**Last reviewed:** 2026-11-07  
+**Last reviewed:** 2026-11-09  
 **Scope:** Apple TV applications and tvOS platform behavior, compared with Android TV / Google TV and UTOS opportunities  
 **Evidence:** A = official platform/developer listing or source checked; C = comparative inference; U = availability, behavior, or device result not yet verified
 
@@ -36,10 +36,11 @@ Candidate list (availability is storefront- and subscription-dependent):
 | Zuno | App Store listing explicitly includes Apple TV; Plex, Jellyfin and Emby client with custom player | Native multi-server library UX, sync, profiles, playback controls, Live TV concepts | Newer product; feature/decoder claims are vendor claims until independently tested |
 | Plex | Official Apple TV client | Server/client separation, metadata, continue watching, remote access UX | Server transcoding, codecs, subscriptions and account requirements vary |
 | Emby | Official Apple TV client | Personal library browsing, music/photo integration, server-centric model | Feature parity and premium requirements vary |
-| Jellyfin | No official tvOS client is listed on the official Jellyfin downloads page reviewed here; third-party clients exist | Open server APIs, user-controlled library, direct-play/transcode compatibility | Do not label third-party clients as official Jellyfin apps |
-| Swiftfin / xfinn / other Jellyfin clients | Third-party Apple-platform clients; verify current tvOS availability and maintenance individually | Native tvOS client patterns, server compatibility, remote-first playback | Status, capabilities, licensing and release activity differ by project |
+| Jellyfin | First-party tvOS client is Swiftfin, maintained in the jellyfin/Swiftfin repository and linked to the App Store/TestFlight | Open server APIs, user-controlled library, direct-play/transcode compatibility | Do not label third-party clients as official Jellyfin apps |
+| Swiftfin | First-party Jellyfin project client; App Store and TestFlight; current README requires tvOS 26+ | Native focus navigation, playback, media segments | Current README carries a Jellyfin 12.0 badge; server 12.4 compatibility remains U |
+| xfinn | Independent Jellyfin client; MIT source; developer docs state tvOS 18.6+ | AVPlayer, capability negotiation, Quick Connect | Not affiliated with Jellyfin; no R700 client is verified |
 | IIVA | App Store listing includes Apple TV; supports SMB/WebDAV and selected cloud/media sources | Lightweight network file access and media browsing | Listing's visible version history is old; maintenance and compatibility are U |
-| Filebar (not “Fileball”) | App Store listing currently shows Apple TV compatibility, but the developer FAQ contains older statements that Apple TV support was planned | Remote file management, network protocols, media library integration | Name and support claims conflict across sources; verify current install and actual feature behavior before recommendation |
+| Filebar / Fileball | Current Filebar App Store record shows Apple TV compatibility; Fileball website/FAQ contains older conflicting Apple TV statements | Remote file management, network protocols and media library integration | Treat the current App Store listing as distribution evidence only; resolve naming and feature mismatch with the current build before recommendation |
 | Leplayer | Public GitHub tvOS project, with source/build instructions; not treated as confirmed App Store distribution | M3U/IPTV, cloud drives, WebDAV/FTP, metadata, dual AVPlayer/VLC architecture | Self-build/developer signing path; audit current source, dependencies, licenses, credentials and release state before use |
 
 **UTOS lessons:** separate media server from client, protocol adapters from playback engines, metadata from files, and source ingestion from playback validation. Keep engine-neutral interfaces. A feature matrix must identify direct play, server transcode, container, video/audio codec, subtitles, HDR, DRM and device support independently.
@@ -159,3 +160,26 @@ Checked 2026-11-07:
 - [ ] Map each Apple-side learning to a UTOS requirement, ADR or validation case; do not add apps as core dependencies merely because they are popular.
 
 **Non-claim:** This document is a researched comparison baseline. No Apple TV device was tested, no application was installed, and no UTOS capability was implemented by writing this document.
+
+
+## 9. 2026-11-09 verification and corrections
+
+### First-party versus third-party Jellyfin clients
+- **Swiftfin** is maintained under the Jellyfin organization: https://github.com/jellyfin/Swiftfin. The current README links the App Store and TestFlight, states tvOS 26+ and carries a Jellyfin 12.0 badge. Release 1.6.1 is dated 2026-08-23. Its current code is active, but the 12.0 badge does not prove compatibility with Jellyfin server 12.4.
+- **xfinn** is an independent app, not a Jellyfin project: https://github.com/Glob0x17/xfinn. Its source declares MIT; developer documentation states tvOS 18.6+ and recommends Jellyfin 12. The privacy/no-tracking statement is publisher-declared, not independently verified.
+
+### Additional current candidates
+- **Leplayer:** https://github.com/leisurehuang/Leplayer. README says v1.2.1, tvOS 14+, Xcode 15+ and CocoaPods; LICENSE is MIT, but third-party notices/dependency licenses still apply. No formal GitHub Release was found; last push observed 2026-06-14. OAuth provider credentials are placeholders in source. Study only; no build/test.
+- **Airwave:** https://apps.apple.com/us/app/airwave-live-tv/id6801608850. Apple TV app version 1.2 observed 2026-11-09, US$2.99. Requires a self-hosted Airwave server connected to Plex; server is described as source-available. Do not infer R700/Android TV client availability from the server's marketing list.
+- **Dawnboard:** https://apps.apple.com/gb/app/dawnboard/id6758313682. Version 1.0.46 observed 2026-11-09; free iPhone + Apple TV dashboard configured over local network.
+- **Wobbly TV:** https://apps.apple.com/us/app/wobbly-tv/id6788838278. Requires tvOS 26+; listing shows Wobbly TV+ at US$9.99.
+- **Filebar:** https://apps.apple.com/app/id1558391784. Current listing shows Apple TV compatibility; older Fileball FAQ statements conflict, so verify the actual current build and feature set.
+- **IIVA:** older listing/version history indicates 1.0.3 (2023-10-09); Hold for maintenance and current compatibility evidence.
+- **AirWeb:** https://apps.apple.com/us/app/airweb-tv-web-browser/id770893993. App is listed for iPhone/iPad and uses AirPlay mirroring; not a native tvOS browser.
+- **Speedtest:** https://apps.apple.com/us/app/speedtest-by-ookla/id300704847. Apple TV listing indicates ads and an in-app ad-removal purchase.
+
+### Distribution and compatibility rules
+- TestFlight builds are available for up to 90 days; a valid invitation/build and compatible tvOS version are still required.
+- App Store availability is storefront-specific. The US/UK listings above do not establish availability in the user's storefront.
+- tvOS Browser projects using private APIs remain a sideload-only research path, not a supported App Store installation route.
+- No Apple TV or R700 device was operated in this review.
