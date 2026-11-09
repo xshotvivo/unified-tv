@@ -119,3 +119,41 @@ A milestone is complete only when requirements, test evidence, known limitations
 - [ ] Test LAN discovery, SMB/NFS permissions, VPN/proxy coexistence, remote access security and offline behavior.
 - [ ] Complete disk-failure, power-loss, backup-restore, OS-update and container-rollback drills; record RPO/RTO before adoption.
 - [ ] Keep vendor-specific NAS and media services optional; UTOS contracts must support migration and replacement.
+
+
+## Phase 9 — Cloud Drive & Resource Sharing
+- [ ] Select one primary listing/WebDAV service (OpenList or AList) after license and security review; keep rclone as an optional mount/sync engine.
+- [ ] Define provider adapters, token vault, read-only default, cache quotas, source provenance and revocation.
+- [ ] Test range/seek, resume, rate limits, cache eviction, token expiry and config restore in a disposable environment.
+- [ ] Do not treat remote mounts or cache as backups; test independent backup/restore.
+
+## Phase 10 — Sports Live Center
+- [ ] Keep sports event, team, competition and schedule models separate from general IPTV channel catalog.
+- [ ] Evaluate Bee-v1/v2, Smart IPTV Server and service-specific adapters only after source/license/SBOM/digest review.
+- [ ] Verify event timezone, event-to-channel mapping, rights and user-authorized source provenance.
+- [ ] Reuse the shared playback and diagnostics contracts; measure first frame and sustained playback on named hardware.
+
+## Phase 11 — Retro Game Library
+- [ ] Define legal game asset intake, metadata, emulator/runtime adapter and controller profile contracts.
+- [ ] Review emulator/core licenses, BIOS requirements, supported formats and save-state portability.
+- [ ] Test D-pad/controller mapping, frame pacing, audio latency, suspend/resume and save-state backup on disposable hardware.
+- [ ] Do not bundle or redistribute copyrighted ROMs, BIOS or commercial game images without explicit rights.
+
+## Phase 12 — Docker Operations & Home Network
+- [ ] Inventory Windows 11 Docker Desktop/WSL2, NAS host and router model before any trial.
+- [ ] Define Compose-as-source-of-truth, immutable image digests, SBOM/provenance, secrets, least privilege, health checks and resource limits.
+- [ ] Evaluate DPanel only after custom EULA review and Docker-socket threat assessment.
+- [ ] Validate OpenWrt/OpenClash/Mihomo compatibility on a disposable router/VM; preserve config backup and recovery path.
+- [ ] Complete container data restore, image rollback and network recovery drills before production use.
+
+## Phase 13 — Cross-device Services
+- [ ] Define device identity, pairing, revocation, discovery and session synchronization contracts.
+- [ ] Build protocol-specific adapters for AirPlay, Google Cast, DLNA/UPnP and local file services; do not assume protocol parity.
+- [ ] Test same-LAN, VLAN, Wi-Fi isolation, sleep/wake, sender disconnect and receiver recovery.
+- [ ] Validate every sender/receiver pair and media capability on real hardware before claiming support.
+
+## Weekly ecosystem baseline — 2026-11-09
+- [x] Refresh official release and license records for Guovin IPTV-API, IPTV Checker, OpenList, rclone, TrueNAS, OpenMediaVault, Jellyfin, OpenWrt, OpenClash and Mihomo.
+- [x] Recheck Apple TV/tvOS client and ambient-app classification; correct Swiftfin's first-party Jellyfin status.
+- [x] Create separate module specifications for online video, cloud drive, sports live, retro games, Docker operations, home network and cross-device services.
+- [ ] P0 remains: exact R700/Windows/NAS/router inventory, disposable trials, restore tests and per-device playback validation.

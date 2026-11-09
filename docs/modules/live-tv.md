@@ -1,7 +1,7 @@
 # UTOS Live TV
 
 **Status:** Proposed engineering baseline; not implemented, built, or validated on target hardware.
-**Research snapshot:** 2026-11-07. Repository status and licenses must be rechecked before adoption.
+**Research snapshot:** 2026-11-09. Repository status and licenses must be rechecked before adoption.
 **First target:** Toshiba R700, Android 12 (exact model suffix, firmware, SoC, RAM and storage still to be recorded).
 
 ## 1. Product definition
@@ -483,3 +483,14 @@ VVC research candidates include vendor MediaCodec/Codec2 and VVdeC. Android 17 i
 Performance work must profile first, then optimize algorithm hot paths, codec-valid parallel units, maintained SIMD implementations, memory traffic and rendering. Do not skip mandatory normative tools such as ALF/CDEF to force playback; use a lower-complexity rendition or reject the stream if real-time decode is not possible.
 
 See `docs/modules/playback-system.md` section 11 for decoder selection, tests, metrics and evidence boundaries.
+
+
+## 16. Ecosystem and service candidate refresh — 2026-11-09
+
+- Guovin IPTV-API 3.1.0 is the current checked aggregation reference. It requires Python 3.14, declares AGPL-3.0, supports Docker/Compose and a Windows/macOS PySide6 desktop app. Keep it isolated and pin image version/digest before trial.
+- IPTV Checker v5.0.2 declares MIT and supports Docker/Compose, CLI, HTTP plus FFmpeg forced checks, EPG and M3U/TXT exports. The v5.0.2 release body is empty and the checked changelog still starts at 5.0.1; exact delta remains U.
+- Keep Guovin as ingestion/aggregation and IPTV Checker as an independent validation worker. UTOS owns the canonical source schema, provenance and rights/authorization state.
+- smart-v1, iptv-4gtv, 4gtv-v1, bee-v1 and bee-v2 are Docker Hub image candidates only in this review. Source repository, explicit license and SBOM/provenance were not established. Do not run them before digest, source, license, credential, persistence and recovery review.
+- 4GTV-specific candidates remain separate from general IPTV and Sports Live. Proxy options must not be used to bypass DRM, paid access or geographic authorization restrictions.
+- DPanel is an optional operations UI, not part of the Live TV runtime. Its custom EULA and Docker-socket risk are recorded in the Docker Operations module.
+- No IPTV image was installed, no playlist was modified, no source URL or token was disclosed, and no R700 playback test was performed.

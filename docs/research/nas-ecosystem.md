@@ -1,6 +1,6 @@
 # NAS Ecosystem Research Register
 
-**Last baseline:** 2026-11-07
+**Last baseline:** 2026-11-09
 **Status:** Initial shortlist; not a complete comparative audit.
 **Rule:** Recheck official documentation, current releases, licensing and security before adoption.
 
@@ -77,3 +77,41 @@ For each test record: date/time, operator, product/edition/version, hardware/fir
 
 ## 10. Initial source notes
 FygoOS/Fygo TV official product/help material is a starting point; vendor-published capabilities are not independent validation. TrueNAS and OpenMediaVault official entry points are identified; detailed version-specific comparison remains open. Jellyfin, Emby, Plex, Kodi and metadata services are candidates only; exact current release/client/license status must be rechecked before adoption.
+
+
+## 11. Version and product verification — 2026-11-09
+
+### FygoOS / Fygo TV
+- Official license page: https://fygonas.com/pricing. It lists x86/ARM and ZFS/ext4/Btrfs, a free tier limited to 3 users and 4 storage devices, and paid tiers for expanded limits. Prices and terms can change; recheck before purchase.
+- Fygo TV install guide: https://help.fygonas.com/articles/v1/media/media_install. Fygo TV is installed on FygoOS from the NAS App Center; it has its own account and folder-scope model, can access remote mounts, and can prefer local NFO/images.
+- Remote access guide: https://help.fygonas.com/articles/v1/access/how-access. FygoConnect requires a Fygo account; relay traffic is speed-limited; P2P direct access is conditional on IPv6 availability.
+- Account distinction: https://help.fygonas.com/articles/v1/contact/account-diff. Local accounts are used on LAN; cloud services require a Fygo account.
+- Public source code: https://help.fygonas.com/articles/v1/contact/public-source-code. The page lists Linux kernel and Samba source; it does not establish that the entire FygoOS distribution is open source.
+- Privacy policy: https://fygonas.com/privacy-policy. It describes account and technical data for online services; it is not sufficient to infer all offline OS telemetry behavior.
+- **Decision:** Study only. Fygo TV is a NAS-side server application in the checked docs, not a confirmed Android TV client. R700 direct-play, transcode, HDR/audio/subtitle and remote-control compatibility remain U.
+
+### TrueNAS
+- Software status: https://www.truenas.com/docs/softwarestatus/
+- Current stable checked: 25.10.8 (2026-11-05). Release notes describe a fix for dataset passphrases appearing in internal job arguments, NVMe-over-TCP I/O fixes and a kernel update addressing more than 1,600 upstream CVEs.
+- 27-RC.1 (2026-10-06) is an early release. Do not use it for production data.
+- **Decision:** Study 25.10.8 as the current stable reference; keep 27-RC.1 out of production evaluation.
+
+### OpenMediaVault
+- Official changelog: https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault/debian/changelog
+- Core package 8.6.1-1 is dated 2026-10-30. Keep the core OS and plugins as separate version records.
+- OpenMediaVault Compose plugin changelog: https://github.com/OpenMediaVault-Plugin-Developers/openmediavault-compose/blob/main/debian/changelog — version 8.2.5 dated 2026-10-25.
+- **Decision:** Study; no install or hardware compatibility is claimed.
+
+### Media server
+- Jellyfin latest checked release: 12.4, published 2026-10-26: https://github.com/jellyfin/jellyfin/releases/tag/v12.4
+- Jellyfin 12.4 is a minor release within 12.x; the major migration boundary is entering 12.0 from an older major line. The 12.4 release note still says to take a full backup before upgrading. Clone the database/library, back up configuration and metadata, review plugins and test every client before any production upgrade.
+- Swiftfin's current README is linked to Jellyfin 12.0 and tvOS 26+; validate server 12.4 compatibility instead of inferring it.
+- Plex and Emby exact current stable release numbers were not verified in this pass; keep version fields U rather than guessing.
+
+### Cloud-drive service candidates
+- OpenList v4.2.9 (2026-10-25), AGPL-3.0: https://github.com/OpenListTeam/OpenList/releases/tag/v4.2.9
+- AList v3.66.0 (2026-10-21), AGPL-3.0: https://github.com/AlistGo/alist
+- rclone v1.76.0 (2026-11-06), MIT: https://rclone.org/changelog/
+- rclone 1.76.0 includes security fixes for multiple CVEs, safer HTTPS downgrade/redirect behavior and local symlink/path protections. Use a disposable environment and pin the exact version/digest before trial.
+
+No NAS, disk, Docker host, cloud account or R700 device was changed or tested.

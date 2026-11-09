@@ -257,3 +257,48 @@ Media3, IJKPlayer, LibVLC and libmpv are playback frameworks or integration laye
 - Android VVC platform support: https://source.android.com/docs/core/media/vvc
 
 All project adoption requires commit-level maintenance, security, license and Android ABI review. Public code is not a guarantee of product readiness.
+
+
+## 11. 2026-11-09 weekly source and operations refresh
+
+### Guovin IPTV-API
+- Official repository: https://github.com/Guovin/iptv-api
+- Latest checked release: 3.1.0, published 2026-10-12: https://github.com/Guovin/iptv-api/releases/tag/3.1.0
+- License: AGPL-3.0. Python 3.14 is required. The release improves the Windows/macOS PySide6 desktop app, configuration/output-directory migration, large-channel handling, EPG/live sampling resource limits, Docker proxy handling and dependency security.
+- The current config checked in this review has subscription EPG auto-discovery disabled and automatic source disabling disabled. Preserve these safe defaults until source trust and recovery tests pass.
+- Upstream Compose sample persists config/output paths but uses a mutable latest tag. Trial must pin release tag and digest. Windows desktop support is upstream-documented; local Windows 11 + Docker Desktop/WSL2 compatibility remains U.
+
+### IPTV Checker
+- Official repository: https://github.com/zhimin-dev/iptv-checker
+- Release tag v5.0.2 was published 2026-09-25; the release body is empty. The checked CHANGELOG still starts with 5.0.1, so the exact 5.0.2 delta is U.
+- License: MIT. README documents Docker, Compose and CLI, HTTP plus FFmpeg forced checks, scheduled tasks, EPG, M3U/TXT and IPv4/IPv6 exports.
+- Prior changelog entries include SSRF and path-traversal hardening; this is not a substitute for a current security review.
+- Status: Study / isolated Trial candidate; no deployment or R700 test.
+
+### Docker Hub-only candidates
+The following are separate image identities; a corresponding public source repository, explicit license or verifiable SBOM/provenance was not established in this review. Docker Hub tags and architecture are not proof of stream rights or functional compatibility.
+
+| Image | Visible tag / freshness | Visible architecture | UTOS status |
+|---|---|---|---|
+| https://hub.docker.com/r/instituteiptv/smart-v1 | 0.1.2; last pushed about 6 months earlier | amd64, arm/v7, arm64 | Hold pending source/license/provenance |
+| https://hub.docker.com/r/instituteiptv/iptv-4gtv | 1.1.3; last pushed 2 days earlier | amd64, arm64 | Hold; service-specific credentials and access rights required |
+| https://hub.docker.com/r/instituteiptv/4gtv-v1 | Overview updated about 8 days earlier; README shows 2.4.5 | Not established in checked page | Hold; credentials and source/license unknown |
+| https://hub.docker.com/r/instituteiptv/bee-v1 | 0.1.2; last pushed about 5 months earlier | amd64, arm/v7, arm64 | Study only; stale |
+| https://hub.docker.com/r/instituteiptv/bee-v2 | 0.0.1; last pushed about 10 months earlier | amd64, arm/v7, arm64 | Hold; older image |
+| https://hub.docker.com/r/instituteiptv/iptv-4gtv-system | 0.2.5; updated about 1 month earlier | amd64, arm/v7, arm64 | Separate project; do not merge with iptv-4gtv or 4gtv-v1 |
+
+Do not run these images until source provenance, license, image digest, SBOM/CVE posture, persistent paths, authentication defaults and recovery behavior are reviewed. Do not use any proxy option to bypass DRM, paid access or geographic authorization restrictions.
+
+### Operational candidate: DPanel
+- Official repository and release: https://github.com/donknap/dpanel/releases/tag/v1.11.2
+- v1.11.2 was published 2026-10-29. The custom LICENSE allows non-commercial use but restricts redistribution of derivative/modified/third-party versions without permission.
+- Release notes state that Compose rollback restores YAML, .env and task settings only; it does not restore container runtime state or undo already-completed directory synchronization. Its in-memory backup may expire after one hour or be lost on panel restart.
+- Docker socket access is a high-privilege control plane. Keep DPanel on Hold until license acceptance and a host-root-equivalent threat model are complete.
+
+### Source links
+- Guovin release: https://github.com/Guovin/iptv-api/releases/tag/3.1.0
+- IPTV Checker release/changelog: https://github.com/zhimin-dev/iptv-checker/releases/tag/v5.0.2 and https://github.com/zhimin-dev/iptv-checker/blob/main/CHANGELOG.md
+- DPanel license: https://github.com/donknap/dpanel/blob/master/LICENSE
+- Docker daemon security: https://docs.docker.com/engine/security/
+- Docker image attestations: https://docs.docker.com/build/metadata/attestations/
+- Docker Compose secrets: https://docs.docker.com/compose/how-tos/use-secrets/
