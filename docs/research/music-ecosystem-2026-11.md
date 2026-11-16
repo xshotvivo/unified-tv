@@ -21,11 +21,19 @@
 | Folia upstream | Realeco v0.7.28 on 2026-11-11; Cielo/Folium 2 preview on 2026-11-14 | Desktop/web distribution; official repository releases | AGPL-3.0; source-module API preview, plugin trust and third-party provider rights | Study: lyrics, visualizer, themes, modular source architecture |
 | Folia Android TV | README advertises v0.7.25-tv.14; last repository commit observed 2026-11-04 | Android TV/Google TV/projector; APK distribution linked from repo | AGPL-3.0; no independent APK signature/ABI validation in this run | Study: D-pad/focus, 10-foot UI, lyrics stage; no R700 compatibility claim |
 | Folia Android phone port | Public non-official port; AGPL-3.0 | Android APK/build from source; no formal release verified in this pass | Upstream license is not automatically sufficient for every dependency or modification | Hold for TV implementation; study only |
-| Finamp | finamp-app organization; beta 1.0.1 release line and beta update history | Android/iOS client for Jellyfin music server | Open-source client; beta migration/build stability needs review | Study: Jellyfin music server integration, library sync, mobile UX |
+| Navidrome | v0.64.2, released 2026-09-24 | Self-hosted music server; Linux/ARM64/Windows/macOS and Docker deployment paths | GPL-3.0; v0.64.1 fixed five security issues, v0.64.2 fixed slow-storage scan lock contention and sensitive log handling | Study: dedicated music server adapter; backup database before migration |
+| Feishin | v1.17.0, released 2026-09-15 | Desktop Windows/macOS/Linux client; supports Navidrome, Jellyfin and Subsonic servers | GPL-3.0; desktop release/update channel and macOS updater limitations require review | Study: desktop client, server abstraction and playlist/lyrics UX |
+| Finamp | v1.0.2, released 2026-10-29 | Android/iOS/Linux/Windows/macOS client for Jellyfin music server | MPL-2.0; v1.0.2 hotfixes startup after legacy 0.6.x → 1.0 migration; Play Store review status was still pending at release time | Study: Jellyfin music server integration, library sync and mobile UX; Android TV D-pad remains unverified |
 | Aerial TV Launcher | Aerial 1.98 released 2026-11-15 | Android TV launcher/ambient layer | MIT project plus separately licensed assets/fonts | Study: ambient/desktop integration only |
 | Aerial TV product | Official website checked 2026-11-16 | Apple TV, iPhone/iPad, Mac and Android; commercial product | Closed-source service, paid tiers, cloud account and provider terms | Study: QR setup, cross-device sync, EPG, profiles and handoff UX |
 
 Official links:
+- Navidrome: https://github.com/navidrome/navidrome
+- Navidrome Releases: https://github.com/navidrome/navidrome/releases
+- Feishin: https://github.com/jeffvli/feishin
+- Feishin Releases: https://github.com/jeffvli/feishin/releases
+- Finamp: https://github.com/finamp-app/finamp
+- Finamp Releases: https://github.com/finamp-app/finamp/releases
 - AlgerMusicPlayer: https://github.com/algerkong/AlgerMusicPlayer
 - AlgerMusicPlayer Releases: https://github.com/algerkong/AlgerMusicPlayer/releases
 - AlgerMusicPlayer mobile/TV maintenance decision: https://github.com/algerkong/AlgerMusicPlayer/issues/228
@@ -84,9 +92,11 @@ The README advertises minSdk 24. Android 12 has a higher API level, but this doe
 
 Finamp moved to the finamp-app GitHub organization in 2026. The release page includes beta 1.0.1 and its notes warn about a startup regression for users updating from 0.9.25. This demonstrates why update channel and migration state need explicit handling.
 
-Finamp is useful as a client reference for a user-owned Jellyfin music library. Android TV D-pad navigation, background behavior and R700 compatibility are not established by the mobile release notes. Do not treat an Android phone APK as a TV-ready package.
+Finamp 1.0.2 is the latest stable release checked (2026-10-29). The release fixes a startup failure for some users upgrading from 0.6.x with inconsistent legacy downloads. The release note said Google Play availability was still under review at publication time, so current storefront status must be checked at trial time. Android TV D-pad navigation, background behavior and R700 compatibility are not established by the multi-platform mobile/desktop release notes. Do not treat an Android phone APK as a TV-ready package.
 
 Potential UTOS relationship:
+- Navidrome is a music-focused self-hosted server adapter; its v0.64.1 security release fixed five issues including Subsonic API brute-force rate limiting and credential/log exposure, while v0.64.2 fixed database-lock and scan problems on slow/remote storage. This is relevant to NAS workloads, but no storage benchmark was run.
+- Feishin is a desktop client supporting Navidrome, Jellyfin and Subsonic; it is not an Android TV client.
 - Jellyfin/Emby/Navidrome remain replaceable server adapters.
 - Music Center owns the user-facing music catalog and playlists.
 - Super Player owns actual decoding/output.
