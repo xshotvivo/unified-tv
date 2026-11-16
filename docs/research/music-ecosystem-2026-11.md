@@ -60,7 +60,7 @@ Do not build UTOS Android TV around the Alger mobile branch. Do not assume a pub
 
 ### Upstream change
 
-Folia's v0.7.28 release (2026-11-11) includes visual/lyric and playback refinements. A Cielo/Folium 2 preview (2026-11-14) says built-in sources are being moved into source modules and the folium:2 interface is preview-stage. The project also describes a new “scene” experience in which the playback view becomes a visual room with lyric styles and background presentation.
+The folia-major upstream release page lists Realeco v0.7.28 (2026-11-11), Cielo Canary / Folium 2 preview (2026-11-14) and Limo nightly (2026-11-15). The Cielo build says built-in sources are moving into source modules and the folium:2 interface is preview-stage. The Realeco release describes a new “scene” experience in which the playback view becomes a visual room with lyric styles and background presentation.
 
 ### License and integration risk
 
@@ -68,7 +68,7 @@ The upstream repository is AGPL-3.0. The Android phone port and Android TV port 
 
 ### Android TV port
 
-The miranda031/folia-android-tv README describes:
+The miranda031/folia-android-tv README advertises v0.7.25-tv.14 and minSdk 24. The repository is a non-upstream port. Its README describes:
 - a native Android TV host with LEANBACK_LAUNCHER entry;
 - a multi-level spatial D-pad focus engine;
 - album-wall navigation and remote-accessible command palette;
