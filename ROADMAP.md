@@ -9,7 +9,7 @@ Planning baseline only; not a promise of delivery dates.
 - [x] Define initial architecture and research taxonomy.
 - [x] Define UTOS Live TV product baseline and curated GitHub ecosystem research.
 - [ ] Confirm governance, license and contribution policy.
-- [x] Record known first target: Toshiba REGZA 75R700SF / Android 12; capture exact firmware/build, SoC, ABI, RAM/storage and developer access in P0 inventory.
+- [x] Record known first target: Toshiba REGZA 75R700SF / Android 12 / user-provided software V2.0.260415 / R700SF-HISI-V03; capture exact build fingerprint, SoC, ABI, RAM/storage and developer access in P0 inventory.
 - [ ] Define module ownership, interface versioning and compatibility policy.
 
 ## Phase 1 — Live TV research and architecture closure
