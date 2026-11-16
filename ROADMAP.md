@@ -9,7 +9,7 @@ Planning baseline only; not a promise of delivery dates.
 - [x] Define initial architecture and research taxonomy.
 - [x] Define UTOS Live TV product baseline and curated GitHub ecosystem research.
 - [ ] Confirm governance, license and contribution policy.
-- [ ] Record exact R700 model suffix, firmware/build, SoC, RAM/storage and developer access.
+- [x] Record known first target: Toshiba REGZA 75R700SF / Android 12 / user-provided software V2.0.260415 / R700SF-HISI-V03; capture exact build fingerprint, SoC, ABI, RAM/storage and developer access in P0 inventory.
 - [ ] Define module ownership, interface versioning and compatibility policy.
 
 ## Phase 1 — Live TV research and architecture closure
@@ -66,47 +66,6 @@ Planning baseline only; not a promise of delivery dates.
 - [ ] Capability matrix for Android TV/AOSP, Tizen, webOS, Roku and tvOS.
 - [ ] Validate each target on real hardware or vendor-supported emulator before claiming support.
 
-## Release gates
-A milestone is complete only when requirements, test evidence, known limitations, security review, recovery plan and release notes are recorded. A specification or successful build is not proof of reliable playback.
-
-
-## Phase 3A — Source intelligence and AI-assisted operations
-- [ ] Evaluate Guovin IPTV-API as an isolated source aggregation/measurement worker; review exact license and dependencies before adoption.
-- [ ] Define canonical source/channel schema, provenance and per-channel multi-candidate retention.
-- [ ] Implement authorized multi-source ingestion and channel alias normalization.
-- [ ] Implement bounded latency/throughput sampling and resolution/frame-rate metadata extraction.
-- [ ] Implement source state machine: discovered → reachable → media-valid → first-frame → sustained-sample, plus typed failure states.
-- [ ] Implement M3U/TXT/API exports and transactional scheduled refresh with last-known-good rollback.
-- [ ] Implement EPG merge, freshness, timezone mapping and unmapped-channel diagnostics.
-- [ ] Build incident model and deterministic root-cause rules before adding AI.
-- [ ] Add AI A0/A1 diagnosis/reporting; keep all mutations disabled by default.
-- [ ] Add opt-in A2 retry/failover among preconfigured eligible sources, with bounded retries and post-action playback verification.
-- [ ] Add user-confirmed persistent changes, audit log, rollback and sanitized reports.
-- [ ] Threat-model playlist ingestion, SSRF, redirects, decompression bombs, credential handling and prompt injection from untrusted feed metadata.
-
-
-## Phase 3B — Playback system and quality
-- [ ] Add engine-neutral PlaybackEngine, PlaybackSession, PlaybackCapabilities, PlaybackEvent and PlaybackMetrics contracts.
-- [ ] Implement Media3 as the only first-pass engine and build a local HLS/DASH/progressive regression fixture corpus.
-- [ ] Design remote-first player HUD, channel zapping, track selection, subtitle controls and honest live-edge behavior.
-- [ ] Capture first-frame, rebuffer, decoder, track, lifecycle, memory and thermal metrics.
-- [ ] Classify failures before retry/fallback; do not use engine switching to mask source/network/auth failures.
-- [ ] Review LibVLC license/dependency/build footprint and run an isolated adapter trial only if Media3 gaps are reproducible.
-- [ ] Keep libmpv research-only and IJKPlayer on hold pending maintenance/security review.
-- [ ] Compare engines on identical R700 firmware, fixtures, network and repeatable test procedure before any performance claim.
-
-
-## Phase 3C — Codec compatibility and decode performance
-- [ ] Capture Toshiba R700 MediaCodec/Codec2 decoder inventory and supported profiles/levels.
-- [ ] Build a local codec fixture matrix for H.264, HEVC, VP9 and AV1; include profile, bit depth, chroma, resolution, frame rate and HDR metadata.
-- [ ] Verify Media3 platform decoder selection and optional AV1 software extension separately.
-- [ ] Measure sustained FPS, dropped frames, first frame, A/V sync, CPU, RAM, temperature and power.
-- [ ] Research VVdeC only as a VVC software candidate; do not assume 4K real-time on R700.
-- [ ] Track AV2 v1.0.0, AVM and dav2d conformance/performance; keep AV2 out of production defaults until hardware/software maturity is proven.
-- [ ] Do not disable mandatory codec tools to force playback; use compatible renditions or report unsupported.
-- [ ] Reassess codec support, decoder libraries, security and license state during weekly ecosystem reviews.
-
-
 ## Phase 8 — NAS, home media and cross-device services
 - [ ] Record candidate NAS hardware, CPU architecture, RAM, disk/controller topology, network and recovery path.
 - [ ] Compare FygoOS/fnOS, TrueNAS and OpenMediaVault against the NAS research register; verify current edition, licensing, supported hardware and lifecycle.
@@ -119,7 +78,6 @@ A milestone is complete only when requirements, test evidence, known limitations
 - [ ] Test LAN discovery, SMB/NFS permissions, VPN/proxy coexistence, remote access security and offline behavior.
 - [ ] Complete disk-failure, power-loss, backup-restore, OS-update and container-rollback drills; record RPO/RTO before adoption.
 - [ ] Keep vendor-specific NAS and media services optional; UTOS contracts must support migration and replacement.
-
 
 ## Phase 9 — Cloud Drive & Resource Sharing
 - [ ] Select one primary listing/WebDAV service (OpenList or AList) after license and security review; keep rclone as an optional mount/sync engine.
@@ -152,8 +110,76 @@ A milestone is complete only when requirements, test evidence, known limitations
 - [ ] Test same-LAN, VLAN, Wi-Fi isolation, sleep/wake, sender disconnect and receiver recovery.
 - [ ] Validate every sender/receiver pair and media capability on real hardware before claiming support.
 
-## Weekly ecosystem baseline — 2026-11-09
-- [x] Refresh official release and license records for Guovin IPTV-API, IPTV Checker, OpenList, rclone, TrueNAS, OpenMediaVault, Jellyfin, OpenWrt, OpenClash and Mihomo.
-- [x] Recheck Apple TV/tvOS client and ambient-app classification; correct Swiftfin's first-party Jellyfin status.
-- [x] Create separate module specifications for online video, cloud drive, sports live, retro games, Docker operations, home network and cross-device services.
-- [ ] P0 remains: exact R700/Windows/NAS/router inventory, disposable trials, restore tests and per-device playback validation.
+## Phase 14 — Cloud IPTV Hub
+- [ ] Keep Cloud IPTV Hub separate from IPTV Source Engine: source semantics and health stay in the source engine; Hub owns publication, identity, auth and delivery.
+- [ ] Define canonical source/channel/EPG/device schemas, provenance, rights state and token lifecycle.
+- [ ] Build a deterministic pipeline: collect → normalize → dedupe → health state → EPG map → versioned M3U/TXT/JSON/XMLTV.
+- [ ] Compare GitHub Actions/self-hosted ingestion against Cloudflare Workers; keep heavy scraping/probing outside latency-sensitive Workers.
+- [ ] Prototype Pages + Workers + R2 + D1/KV only in a disposable account after explicit approval.
+- [ ] Implement per-device QR pairing and revocation in UTV clients; preserve one-time manual URL setup for third-party players without a pairing API.
+- [ ] Test ETag/cache, rate limits, token redaction, last-known-good rollback and real client refresh.
+- [ ] Do not claim zero-touch player setup, video proxying or playback quality improvement without end-to-end evidence.
+
+## Phase 15 — UTOS Music Center
+- [ ] Establish Music Center as a first-level domain module reusing the shared Playback System.
+- [ ] Define library, artist/album/track metadata, playlists, queue, lyrics, history, favorites and Provider Registry contracts.
+- [ ] Review AlgerMusicPlayer, Folia, Folia Android TV and Finamp with license, platform, maintenance and provider-security checks.
+- [ ] Implement local library and metadata correction persistence before online providers.
+- [ ] Add lyrics timing and visualizer only after playback/session stability and resource budgets are measured.
+- [ ] Instrument sample rate, resampling, system mixing, DSP and output route; no bit-perfect claim without measurement.
+- [ ] Validate Android TV remote focus, MediaSession, sleep/wake, background audio, export/restore and long-session reliability.
+
+## Phase 16 — TVOS Resource Library & UTV Movie Lite
+- [ ] Treat TVOS as the Media Center catalog/metadata subsystem, not a second media database or player.
+- [ ] Treat UTV Movie Lite as the lightweight TV discovery/browser client on shared Media Library and Super Player contracts.
+- [ ] Define legal Provider adapters, media identity, aliases, language, year, season/episode, artwork, subtitles and provenance.
+- [ ] Compare Marco Movie, Kodi, Jellyfin Android TV, Emby/Plex and TVBox-derived clients by remote UX, license, security and actual release lineage.
+- [ ] Verify APK ABI, Android API, signature, dependencies and source before any installation.
+- [ ] Test search, details, episode ordering, source switch, subtitles, history, resume, playback recovery and remote navigation on R700.
+- [ ] Do not bundle unauthorized sources or infer playback rights from metadata availability.
+
+## Release gates
+A milestone is complete only when requirements, test evidence, known limitations, security review, recovery plan and release notes are recorded. A specification or successful build is not proof of reliable playback.
+
+## Phase 3A — Source intelligence and AI-assisted operations
+- [ ] Evaluate Guovin IPTV-API as an isolated source aggregation/measurement worker; review exact license and dependencies before adoption.
+- [ ] Define canonical source/channel schema, provenance and per-channel multi-candidate retention.
+- [ ] Implement authorized multi-source ingestion and channel alias normalization.
+- [ ] Implement bounded latency/throughput sampling and resolution/frame-rate metadata extraction.
+- [ ] Implement source state machine: discovered → reachable → media-valid → first-frame → sustained-sample, plus typed failure states.
+- [ ] Implement M3U/TXT/API exports and transactional scheduled refresh with last-known-good rollback.
+- [ ] Implement EPG merge, freshness, timezone mapping and unmapped-channel diagnostics.
+- [ ] Build incident model and deterministic root-cause rules before adding AI.
+- [ ] Add AI A0/A1 diagnosis/reporting; keep all mutations disabled by default.
+- [ ] Add opt-in A2 retry/failover among preconfigured eligible sources, with bounded retries and post-action playback verification.
+- [ ] Add user-confirmed persistent changes, audit log, rollback and sanitized reports.
+- [ ] Threat-model playlist ingestion, SSRF, redirects, decompression bombs, credential handling and prompt injection from untrusted feed metadata.
+
+## Phase 3B — Playback system and quality
+- [ ] Add engine-neutral PlaybackEngine, PlaybackSession, PlaybackCapabilities, PlaybackEvent and PlaybackMetrics contracts.
+- [ ] Implement Media3 as the only first-pass engine and build a local HLS/DASH/progressive regression fixture corpus.
+- [ ] Design remote-first player HUD, channel zapping, track selection, subtitle controls and honest live-edge behavior.
+- [ ] Capture first-frame, rebuffer, decoder, track, lifecycle, memory and thermal metrics.
+- [ ] Classify failures before retry/fallback; do not use engine switching to mask source/network/auth failures.
+- [ ] Review LibVLC license/dependency/build footprint and run an isolated adapter trial only if Media3 gaps are reproducible.
+- [ ] Keep libmpv research-only and IJKPlayer on hold pending maintenance/security review.
+- [ ] Compare engines on identical R700 firmware, fixtures, network and repeatable test procedure before any performance claim.
+
+## Phase 3C — Codec compatibility and decode performance
+- [ ] Capture Toshiba R700 MediaCodec/Codec2 decoder inventory and supported profiles/levels.
+- [ ] Build a local codec fixture matrix for H.264, HEVC, VP9 and AV1; include profile, bit depth, chroma, resolution, frame rate and HDR metadata.
+- [ ] Verify Media3 platform decoder selection and optional AV1 software extension separately.
+- [ ] Measure sustained FPS, dropped frames, first frame, A/V sync, CPU, RAM, temperature and power.
+- [ ] Research VVdeC only as a VVC software candidate; do not assume 4K real-time on R700.
+- [ ] Track AV2 v1.0.0, AVM and dav2d conformance/performance; keep AV2 out of production defaults until hardware/software maturity is proven.
+- [ ] Do not disable mandatory codec tools to force playback; use compatible renditions or report unsupported.
+- [ ] Reassess codec support, decoder libraries, security and license state during weekly ecosystem reviews.
+
+## Weekly ecosystem baseline — 2026-11-16
+- [x] Correct Guovin IPTV-API to v3.0.0 and IPTV Checker to v5.0.2 using official release pages.
+- [x] Add Cloud IPTV Hub architecture and Cloudflare limits/one-time pairing constraints.
+- [x] Preserve the user-confirmed China mainland IPTV V1.0 source baseline; record new source-file freshness without claiming playback.
+- [x] Add Music Center as a first-level module and complete the November music ecosystem review.
+- [x] Add TVOS/Movie Lite boundaries and review Marco Movie, TVBox-derived clients and Aerial/Folia distinctions.
+- [x] Update Mihomo upstream to v1.19.34 and record OpenClash issue evidence.
+- [ ] P0 remains: exact R700 capability inventory, authorized playback fixtures, repeatable player logs, disposable service trials and restore tests.

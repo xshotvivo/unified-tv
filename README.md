@@ -2,8 +2,8 @@
 
 A long-term research and engineering project for a coherent, modular, reliable smart-TV experience.
 
-**Status:** Architecture discovery / foundation. Module specifications and research baselines only; no production module is declared deployed.
-**First validation target:** Toshiba R700, Android 12 (exact model and firmware TBD).
+**Status:** Architecture discovery / foundation. Module specifications and research baselines only; no production module is declared deployed.  
+**First validation target:** Toshiba REGZA 75R700SF, Android 12. User-provided software version: V2.0.260415 / R700SF-HISI-V03. Exact Android build fingerprint, SoC, ABI and developer-access state remain to be captured.  
 **Evidence rule:** Never present a design target or inference as a measured fact.
 
 ## Vision
@@ -20,28 +20,34 @@ Study the strongest ideas across Apple tvOS, Google TV, Android TV/AOSP, Samsung
 6. Evidence-led: separate verified facts, measurements, inference, design goals and unknowns.
 7. Portable: isolate platform differences behind adapters; never assume vendor API parity.
 8. Data-safe: backup, restore, least privilege and rollback are release blockers for storage and operations modules.
+9. Rights-aware: media metadata, source availability and legal playback authorization are separate states.
 
 ## Independent product and infrastructure modules
 
 - [Module Status Register](docs/modules/module-status-register.md): architecture, deployment, device-test and production-acceptance state kept separate.
+- [System Architecture](docs/architecture/system-architecture.md): shared layer and domain boundaries.
+- [Architecture Addendum — 2026-11-16](docs/architecture/architecture-addendum-2026-11-16.md): Cloud IPTV Hub, Music Center and TVOS/Movie Lite boundaries.
 - [NAS & Home Media Server](docs/modules/nas-home-media-server.md): vendor-neutral storage, backup/recovery, media servers, metadata, TV clients and cross-device access.
 - [NAS Ecosystem Research](docs/research/nas-ecosystem.md): FygoOS/fnOS, TrueNAS, OpenMediaVault, Jellyfin, Emby, Plex and metadata tools.
-- [UTOS Media Center](docs/modules/media-center.md): local/private media discovery, metadata, personal library and playback handoff.
-- [Online Video Aggregation](docs/modules/online-video-aggregation.md): isolated LunaTV/MoonTV-style provider adapters; no bundled or unauthorized content.
+- [UTOS Media Center](docs/modules/media-center.md): local/private media discovery, metadata, personal library and playback handoff; TVOS and Movie Lite remain within this domain.
+- [Online Video Aggregation](docs/modules/online-video-aggregation.md): isolated provider adapters; no bundled or unauthorized content.
 - [UTOS Live TV](docs/modules/live-tv.md): M3U/XMLTV ingestion, channel catalog, EPG, source health, diagnostics and controlled failover.
 - [Live TV Ecosystem Research](docs/research/live-tv-ecosystem.md): Guovin IPTV-API, IPTV Checker and separately evaluated proxy/server candidates.
+- [Cloud IPTV Hub](docs/modules/cloud-iptv-hub.md): versioned playlist/EPG publication, device pairing, subscription authentication and cross-client delivery.
 - [Sports Live Center](docs/modules/sports-live-center.md): separate sports-event catalog and authorized live-playback entry.
 - [Cloud Drive & Resource Sharing](docs/modules/cloud-drive-resource-sharing.md): OpenList, rclone and compatible remote-storage adapters.
 - [Retro Game Library](docs/modules/retro-game-library.md): legal game catalog, emulator/runtime adapters, controller and save-state requirements.
 - [Docker Operations](docs/modules/docker-operations.md): Compose lifecycle, image supply chain, secrets, monitoring, backup and recovery.
 - [Home Network](docs/modules/home-network.md): OpenWrt, OpenClash, Mihomo, LAN, DNS, multicast and secure remote access.
 - [Cross-device Services](docs/modules/cross-device-services.md): discovery, casting, handoff, session sync and remote control.
+- [UTOS Music Center](docs/modules/music-center.md): local music, authorized providers, playlists, lyrics, audio fidelity and cross-device listening.
+- [Music Ecosystem — November 2026](docs/research/music-ecosystem-2026-11.md): monthly open-source music project review.
 - [Apple TV / tvOS Ecosystem](docs/research/apple-tv-tvos-ecosystem.md): five-category Apple TV app map, Android TV comparison and UTOS learning backlog.
 - [UTOS AI Agent](docs/modules/ai-agent.md): natural-language intent, bounded task planning and controlled orchestration of approved UTOS services.
 - [Playback System](docs/modules/playback-system.md): engine-neutral playback contracts and measurable quality gates.
 - [Reliability Engineering](docs/engineering/reliability-engineering.md): incident classification, resilience controls, recovery, measurement and release gates.
 
-These are proposed specifications and research candidates, not implemented or device-validated features. See [System Architecture](docs/architecture/system-architecture.md), [Roadmap](ROADMAP.md) and the [2026-11-09 weekly intelligence review](docs/research/weekly-intelligence-2026-11-09.md).
+These are proposed specifications and research candidates, not implemented or device-validated features. See the [Roadmap](ROADMAP.md), the [2026-11-09 review](docs/research/weekly-intelligence-2026-11-09.md) and the [2026-11-16 consolidated weekly review](docs/research/weekly-intelligence-2026-11-16.md).
 
 ## Scope boundary
 
@@ -55,6 +61,9 @@ The first R700 phase is an Android 12 experience and integration layer, subject 
 - Important decisions belong in docs/decisions/ as Architecture Decision Records. Every research item needs a source, access date, applicability, license boundary and confidence. Every device claim needs model, firmware, test conditions and repeatability.
 - Research status, architecture approval, deployment, repeatable testing and production acceptance are distinct states.
 - Do not remove or disable system packages/services without a reversible test and recovery path.
+- Keep user-confirmed IPTV China mainland V1.0 baseline separate from newly discovered community sources; never overwrite it without explicit validation.
+- Cloud IPTV Hub must not promise zero-touch setup for players that expose no supported pairing/configuration interface.
+- Music Center must reuse the shared Playback System; it must not create a parallel playback engine.
 
 ## License
 
