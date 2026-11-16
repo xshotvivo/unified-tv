@@ -145,6 +145,7 @@ Official releases: https://github.com/jellyfin/Swiftfin/releases
 - Swiftfin 1.7.0 released 2026-11-11.
 - Release notes include Live TV guide, tvOS tab placement, player changes including SwiftVLC and mpv, Jellyfin SDK updates, playback progress/lifecycle fixes and UI refinements.
 - Swiftfin is a Jellyfin client for Apple platforms; it is not an Android TV app.
+- Map its multi-engine player contract and Live TV guide into UTOS playback/session interfaces, not into a tvOS binary dependency.
 - TestFlight platform review and build expiry must be checked independently; do not infer storefront availability for the user's region.
 
 ### Aerial TV product vs Aerial TV Launcher
@@ -234,7 +235,7 @@ See the full monthly report: [Music Ecosystem — November 2026](music-ecosystem
 
 Key results:
 - AlgerMusicPlayer 5.1.0 is desktop-oriented; its owner states mobile/TV clients are no longer maintained.
-- Folia v0.7.28 and Folium 2 preview are active; the provider-module interface is preview-stage and AGPL-3.0.
+- the folia-major upstream release page lists Realeco v0.7.28 (2026-11-11), Cielo Canary / Folium 2 preview (2026-11-14) and Limo nightly (2026-11-15); the provider-module interface remains preview-stage and AGPL-3.0.
 - Folia Android TV is a third-party port with a declared minSdk 24, but not R700-tested.
 - Finamp is a Jellyfin music client with a beta release line; TV remote compatibility remains unknown.
 - No bit-perfect output claim is accepted without end-to-end measurement.
