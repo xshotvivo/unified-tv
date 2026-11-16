@@ -58,7 +58,9 @@
 | AlgerMusicPlayer 5.1.0 | Desktop music client and Provider Registry reference | Study for desktop architecture; mobile/TV clients no longer maintained per owner | Not installed or tested |
 | Folia upstream 0.7.28 / Folium 2 preview | Lyrics, visualizer and provider-module reference | Study; AGPL-3.0; provider interface preview-stage | Not built or installed |
 | miranda031/folia-android-tv | Folia Android TV port | Trial candidate only after license, signature, ABI and permission review; minSdk 24 claim | Not installed; no R700 test |
-| Finamp beta 1.0.1 | Jellyfin music client | Study; Android TV D-pad support not established | Not installed or tested |
+| Navidrome 0.64.2 | Self-hosted music server | Study; GPL-3.0; v0.64.1 security fixes and v0.64.2 slow-storage scan fixes; backup DB before migration | Not deployed or tested |
+| Feishin 1.17.0 | Desktop client for Navidrome/Jellyfin/Subsonic | Study; GPL-3.0; no Android TV client established | Not installed or tested |
+| Finamp 1.0.2 | Jellyfin music client | Study; MPL-2.0; Android TV D-pad support not established | Not installed or tested |
 | Marco Movie Android TV 0.5.25 | Android TV movie client | Study; GPL-3.0; release describes 32-bit TV/box APK | Not installed; R700 ABI/codec behavior unknown |
 | TVBoxOSC | Android TV client/fork ecosystem | Hold for adoption; original CatVodTVOfficial URL unavailable; distinguish j4Uq build aggregator from other forks | No APK installed or source imported |
 | hgtuj5688/tvbox-desktop 0.1.0 | Windows Electron movie/TV client | Study for parser, catalog and UI patterns; MIT; do not adopt bundled public sources | Not installed or independently tested |
