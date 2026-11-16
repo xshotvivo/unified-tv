@@ -69,7 +69,7 @@ Current documented limits relevant to this design:
 - Pages Free: up to 20,000 files per site, 25 MiB per individual asset and 500 builds/month.
 - R2 Standard Free tier: 10 GB-month storage, 1 million Class A operations and 10 million Class B operations per month. Internet egress is free; storage and operation overages are still billable.
 
-Design inference: use Pages for the console, Workers for lightweight auth/API and subscription delivery, R2 for immutable playlist/EPG snapshots, D1 or another relational store for catalog/device/audit state, and KV only for cache/current pointers. Heavy scraping, parsing, large-feed dedupe, FFmpeg probing and long health checks belong in GitHub Actions or a controlled worker. Free Worker CPU limits are too restrictive for a full ingestion and media-probing pipeline.
+Design inference: use Pages for the console, Workers for lightweight auth/API and subscription delivery, R2 for immutable playlist/EPG snapshots, D1 or another relational store for catalog/device/audit state, and KV only for cache/current pointers. Consume one-time QR pairing codes through D1 transactions or a Durable Object, not KV. Heavy scraping, parsing, large-feed dedupe, FFmpeg probing and long health checks belong in GitHub Actions or a controlled worker. Free Worker CPU limits are too restrictive for a full ingestion and media-probing pipeline.
 
 Cloudflare static hosting does not transcode or proxy live video by itself. It cannot improve an upstream stream's bitrate, source latency, codec or reliability. Publishing a playlist only distributes references to streams; the player still connects to the actual authorized media endpoint.
 
