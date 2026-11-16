@@ -3,7 +3,7 @@
 A long-term research and engineering project for a coherent, modular, reliable smart-TV experience.
 
 **Status:** Architecture discovery / foundation. Module specifications and research baselines only; no production module is declared deployed.  
-**First validation target:** Toshiba REGZA 75R700SF, Android 12. Exact firmware/build, SoC, ABI and developer-access state remain to be captured.  
+**First validation target:** Toshiba REGZA 75R700SF, Android 12. User-provided software version: V2.0.260415 / R700SF-HISI-V03. Exact Android build fingerprint, SoC, ABI and developer-access state remain to be captured.  
 **Evidence rule:** Never present a design target or inference as a measured fact.
 
 ## Vision
