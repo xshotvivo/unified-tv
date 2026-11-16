@@ -1,12 +1,12 @@
-# UTOS System Architecture — Draft 0.4
+# UTOS System Architecture — Draft 0.5
 
-**Status:** Proposed; not implemented or validated.
+**Status:** Proposed; not implemented or validated.  
 **Primary constraint:** R700 first phase runs on its existing Android 12 firmware unless a separately approved system-image program is created.
 
 ## 1. Layered, capability-oriented model
 
 1. **Experience:** home, navigation, focus engine, visual system, accessibility and ambient mode.
-2. **Domain modules:** Media Center, Online Video Aggregation, Live TV, Sports Live, Cloud Drive, Retro Game Library and App Library.
+2. **Domain modules:** Media Center, TVOS catalog, UTV Movie Lite, Music Center, Online Video Aggregation, Live TV, Cloud IPTV Hub, Sports Live, Cloud Drive, Retro Game Library and App Library.
 3. **Cross-device & Intelligence:** device discovery, casting/handoff, session synchronization, voice hooks and the independent AI Agent. The agent invokes only registered capabilities under policy and consent controls.
 4. **Device Capability:** display, audio, HDMI/CEC, tuner, network, Bluetooth, USB, game controllers and power capabilities exposed through adapters.
 5. **Runtime & Resources:** process lifecycle, rendering budgets, media-session coordination, emulator/player isolation, memory/performance telemetry and host-supported scheduling hooks.
@@ -15,14 +15,20 @@
 
 ## 2. Independent domain modules
 
-### UTOS Media Center
-Owns local/private movie and series discovery, normalized metadata, user library and playback handoff. It does not own the player engine, content rights or source hosting. See [Media Center](../modules/media-center.md).
+### UTOS Media Center and TVOS catalog
+Media Center owns local/private movie and series discovery, normalized metadata, user library and playback handoff. TVOS is its self-owned catalog/metadata subsystem, not a separate NAS OS, parallel media database or player. See [Media Center](../modules/media-center.md).
+
+### UTV Movie Lite
+A lightweight TV-first discovery/browser client consuming TVOS/Media Library, authorized Provider adapters and the shared Super Player. It owns presentation and user navigation, not provider scraping, source rights or a second playback engine.
 
 ### Online Video Aggregation
 Optional provider adapter for self-hosted catalog/front-end projects such as LunaTV/MoonTV. It remains isolated from the local media server and Live TV domains. It does not provide content rights, bundle source lists or bypass authentication/DRM. See [Online Video Aggregation](../modules/online-video-aggregation.md).
 
 ### UTOS Live TV
 Owns general live-channel cataloguing, M3U/XMLTV ingestion, EPG mapping, source provenance, live playback orchestration, health diagnostics, bounded retry and controlled failover. It is a player/source-management module, not a broadcaster or rights provider. See [Live TV](../modules/live-tv.md).
+
+### Cloud IPTV Hub
+Owns versioned playlist/EPG publication, subscription authentication, device identity/pairing, revocation, manifest delivery, caching and rollback pointers. It consumes the IPTV Source Engine's normalized catalog; it does not crawl/probe all feeds or proxy/transcode live video. Existing players without a pairing/configuration API still require one-time manual subscription setup. See [Cloud IPTV Hub](../modules/cloud-iptv-hub.md).
 
 ### Sports Live Center
 Owns sports-event discovery, event metadata, schedules, authorized source mapping and sports-specific entry UX. It may reuse Live TV playback and diagnostics contracts, but must not merge sports event identity, schedules or rights state into the general channel catalog. See [Sports Live Center](../modules/sports-live-center.md).
@@ -45,11 +51,14 @@ Owns network capability inventory, LAN discovery, DNS, multicast/IPTV, VLAN, VPN
 ### Cross-device Services
 Owns device registry, local discovery, remote-control pairing, casting/handoff and session synchronization through protocol adapters. AirPlay, Google Cast and DLNA are not assumed to be interchangeable. See [Cross-device Services](../modules/cross-device-services.md).
 
+### UTOS Music Center
+Owns music catalog, artist/album/track metadata, local library, playlists, queue, lyrics, favorites, listening history and Provider Registry. It reuses the shared Playback System and Media Library primitives but does not create a second player engine. Audio fidelity is a measured end-to-end output-path property. See [Music Center](../modules/music-center.md).
+
 ### UTOS AI Agent
 Owns intent understanding, bounded planning, tool orchestration, consent, user-controlled memory and audit/recovery. It calls domain modules through typed service contracts and does not receive unrestricted system privileges. See [AI Agent](../modules/ai-agent.md).
 
 ### App Library
-Remains a separate domain module for installed-app discovery, categories, favorites and launch handoff. It must not own or duplicate Live TV, Media Center or game catalogs.
+Remains a separate domain module for installed-app discovery, categories, favorites and launch handoff. It must not own or duplicate Live TV, Media Center, Music Center or game catalogs.
 
 ## 3. Shared service boundaries
 
@@ -63,10 +72,14 @@ Remains a separate domain module for installed-app discovery, categories, favori
 - **Configuration Store:** versioned settings with schema migration and export/restore.
 - **Update Manager:** verifies origin, signature and integrity; supports staged deployment and rollback where the host permits.
 - **AgentToolGateway:** typed allowlist of service operations, policy checks, consent gates and auditable results.
+- **Provider Registry:** versioned provider metadata, permission scopes, health, provenance, update pinning and revocation.
+- **Cloud Subscription API:** device-bound credentials, manifest version, ETag/cache policy, per-device revocation and sanitized audit.
 
 ## 4. Dependency direction
 
 Experience → domain modules → capability interfaces → platform adapters. AI Agent → registered service contracts through the policy gateway. Lower layers must not depend on UI modules. Vendor-specific code must not leak into shared domain models. Optional features must degrade gracefully when a capability is absent.
+
+Cloud IPTV Hub depends on IPTV Source Engine outputs; it must not become the canonical owner of source semantics. Music Center depends on Playback System and Media Library primitives; it must not embed a player engine. UTV Movie Lite depends on TVOS/Media Center and Super Player; it must not create a parallel catalog or history store.
 
 ## 5. Quality attributes
 
@@ -84,3 +97,7 @@ Treat OEM firmware as the trusted host. Preserve OEM paths for panel/display pro
 - **L3 Custom system image:** separate program requiring source/BSP, signing, HAL/driver work, security maintenance and recovery infrastructure.
 
 Never describe L1/L2 as an independent OS.
+
+## 8. Architecture addendum
+
+The 2026-11-16 architecture clarification and Cloud IPTV Hub/Music Center/TVOS decisions are recorded in [Architecture Addendum](architecture-addendum-2026-11-16.md). This addendum is a proposal, not a deployment or production approval.
