@@ -85,8 +85,11 @@ Official docs:
 - https://developers.cloudflare.com/workers/platform/limits/
 - https://developers.cloudflare.com/workers/platform/pricing/
 - https://developers.cloudflare.com/kv/platform/limits/
+- https://developers.cloudflare.com/kv/concepts/how-kv-works/
 - https://developers.cloudflare.com/pages/platform/limits/
 - https://developers.cloudflare.com/r2/pricing/
+
+Additional design-relevant limits: Pages Free allows 500 builds/month, 20,000 files/site and 25 MiB per asset. D1 Free allows 5 million rows read/day, 100,000 rows written/day, 5 GB total storage and 10 databases. KV is eventually consistent; Cloudflare documents that remote cached changes can take 60 seconds or more to become visible and KV is not suitable for atomic transactions. Use D1 transactions or Durable Objects for single-use pairing-code consumption.
 
 Inference: Cloudflare is appropriate for lightweight API/auth and artifact delivery. It is not the right place for full feed crawling, large playlist dedupe, FFmpeg probing or transcoding. Static hosting distributes stream references; it does not proxy or improve the upstream media stream.
 
@@ -149,11 +152,17 @@ Official releases: https://github.com/jellyfin/Swiftfin/releases
 - https://aerialtv.app/ is a commercial multi-platform IPTV/media player product. Its official site advertises QR setup, cloud sync, EPG, sports hub, profiles and DVR; it lists USD monthly/yearly/lifetime pricing.
 - https://github.com/pengchujin/aerial-tv is an open-source Android TV launcher. It released Aerial 1.98 on 2026-11-15, with device-specific fixes for standby/ADB, HDMI source switching, boot recovery and focus behavior. The maintainer states several fixes were not tested on all corresponding models.
 
-These projects are not the same app and must not share status or compatibility claims.
+These projects are not the same app and must not share status or compatibility claims. The launcher release notes state that several device-specific fixes were not tested on the corresponding models; only limited regressions were reported on named devices.
 
-### Other named candidates
+### Other named candidates and platform distinctions
 
-IIVA, Filebar/Fileball, Leplayer, Wobbly TV, Dawnboard, AirWeb and tvOS Browser did not reach a sufficiently verified official-source record in this pass. Keep Hold/U until exact official App Store/developer/repository identity, version, storefront and distribution path are established. Do not infer regional App Store availability.
+- Infuse, Plex, Emby and Jellyfin remain the core official streaming/private-library candidates; no new version change for these clients was verified in this pass apart from Swiftfin 1.7.0.
+- IIVA, Leplayer, Wobbly TV, Dawnboard, AirWeb and tvOS Browser did not reach a sufficiently verified official-source record in this pass. Keep Hold/U until exact official App Store/developer/repository identity, version, storefront and distribution path are established.
+- Filebar/Fileball naming is unresolved; do not silently treat the names as the same product.
+- AirPlay is a platform protocol/capability, not an app listing. UTOS should use documented protocol paths and avoid private APIs.
+- The YouTube video app, casting to YouTube and a native YouTube Music app are different product paths. No native YouTube Music tvOS availability was confirmed in this pass; do not infer it from YouTube video playback.
+- Speedtest is not described as ad-free unless the current official store listing explicitly supports that claim.
+- TestFlight invitations and builds are time-limited; verify the active invitation, build expiry and current system requirement at trial time. Do not infer regional App Store availability.
 
 ## 6. NAS and home media servers
 
@@ -245,7 +254,7 @@ Official releases: https://github.com/Pilipala9919/MarcoMovie/releases
 
 - Android TV/box 0.5.25 released 2026-11-15.
 - Release describes 6-way range-proxy prefetch, JAR/QuickJS compatibility, DoH fallback and API 23 bytecode checks.
-- The TV APK is described as a 32-bit TV/box build. R700 ABI/32-bit app compatibility still needs exact manifest and device verification.
+- The TV APK is described as a 32-bit ARM TV/box build. The repository says its main validation environment is Android 9 / ARM 32-bit TV and explicitly warns that the minimum Android 6 / API 23 declaration does not mean every device has been tested. R700 Android 12 does not prove that its firmware accepts this 32-bit package; inspect manifest/ABI and test only after approval.
 - Repository license is GPL-3.0. Upstream offline test/signature claims are not our device measurements.
 
 ### TVBoxOSC
