@@ -155,9 +155,17 @@ Official releases: https://github.com/jellyfin/Swiftfin/releases
 
 These projects are not the same app and must not share status or compatibility claims. The launcher release notes state that several device-specific fixes were not tested on the corresponding models; only limited regressions were reported on named devices.
 
-### Other named candidates and platform distinctions
+### Five-category tracking and platform distinctions
 
-- Infuse, Plex, Emby and Jellyfin remain the core official streaming/private-library candidates; no new version change for these clients was verified in this pass apart from Swiftfin 1.7.0.
+- **Streaming:** Infuse, Plex and Emby are separate commercial client candidates; verify current App Store version, price and storefront at trial time. No new version change was verified in this pass.
+- **Local/private media:** Jellyfin plus Swiftfin is the main open-source server/client path; Swiftfin 1.7.0 is the only material client release verified this week. Infuse and other clients remain alternatives, not interchangeable servers.
+- **Tools/developer:** TestFlight distribution and Speedtest utility status must be checked from current official listings. TestFlight invitation/build expiry is time-limited; Speedtest is not described as ad-free unless the current listing explicitly says so.
+- **AirPlay/casting/browser:** AirPlay is a platform protocol/capability, not an app listing. UTOS should use documented protocol paths and avoid private APIs. AirWeb and tvOS Browser identities remain unverified.
+- **Ambient/screen saver/dashboard:** Wobbly TV and Dawnboard remain Hold/U until an exact official app/repository and current release can be established.
+
+CleanYourTV, FLauncher and the Aerial TV Launcher repository are Android/Google TV ecosystem projects, not tvOS applications. The commercial aerialtv.app product is also separate from the open-source Android launcher.
+
+Infuse, Plex, Emby and Jellyfin remain the core streaming/private-library candidates; no new version change was verified in this pass apart from Swiftfin 1.7.0.
 - IIVA, Leplayer, Wobbly TV, Dawnboard, AirWeb and tvOS Browser did not reach a sufficiently verified official-source record in this pass. Keep Hold/U until exact official App Store/developer/repository identity, version, storefront and distribution path are established.
 - Filebar/Fileball naming is unresolved; do not silently treat the names as the same product.
 - AirPlay is a platform protocol/capability, not an app listing. UTOS should use documented protocol paths and avoid private APIs.
