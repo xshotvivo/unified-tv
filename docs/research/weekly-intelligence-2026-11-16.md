@@ -237,7 +237,9 @@ Key results:
 - AlgerMusicPlayer 5.1.0 is desktop-oriented; its owner states mobile/TV clients are no longer maintained.
 - the folia-major upstream release page lists Realeco v0.7.28 (2026-11-11), Cielo Canary / Folium 2 preview (2026-11-14) and Limo nightly (2026-11-15); the provider-module interface remains preview-stage and AGPL-3.0.
 - Folia Android TV is a third-party port with a declared minSdk 24, but not R700-tested.
-- Finamp is a Jellyfin music client with a beta release line; TV remote compatibility remains unknown.
+- Navidrome 0.64.2 is a current self-hosted music server candidate (GPL-3.0); v0.64.1 fixed five security issues and v0.64.2 fixed slow-storage scan lock contention and sensitive logging.
+- Feishin 1.17.0 is a GPL-3.0 desktop client for Navidrome/Jellyfin/Subsonic; no Android TV client is established.
+- Finamp 1.0.2 is the latest stable MPL-2.0 client release checked (2026-10-29), with a migration-startup hotfix; TV remote compatibility remains unknown.
 - No bit-perfect output claim is accepted without end-to-end measurement.
 
 ## 10. Folia / Aerial / TV experience
