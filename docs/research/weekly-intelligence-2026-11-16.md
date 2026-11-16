@@ -18,7 +18,7 @@
 9. **TVBox identity needs care.** The original CatVodTVOfficial/TVBoxOSC repository is no longer available at that URL. j4Uq/TVBoxOSC is an automated-build/aggregation fork; other forks and source/config repositories exist. hgtuj5688/tvbox-desktop is a separate Windows Electron client with an MIT license and v0.1.0 release. Do not combine them as one project or adopt bundled public source lists.
 10. **Music Center becomes a first-level UTV module.** AlgerMusicPlayer's desktop code is a Provider Registry reference, but its owner states Android/iOS/TV clients are no longer maintained. Folia's provider-module interface is preview-stage and AGPL-3.0. Neither is a ready-made R700 production dependency.
 11. **No new player incident can be ruled out.** No new R700/VLC/MyTV logs or controlled playback measurements were supplied in this run. The absence of a new report is not evidence of no faults. The known MyTV freeze and VLC baseline plan remain open.
-12. No user device, NAS, disk, router, Apple TV or production configuration was changed. No APK was installed, no image/container was pulled or run, and no service was deployed.
+12. The first target is the user-reported Toshiba REGZA 75R700SF / Android 12 / software V2.0.260415 / R700SF-HISI-V03; exact build fingerprint, SoC, ABI and ADB state remain P0 inventory items. No user device, NAS, disk, router, Apple TV or production configuration was changed. No APK was installed, no image/container was pulled or run, and no service was deployed.
 
 ## 2. IPTV source health and Cloud IPTV Hub
 
