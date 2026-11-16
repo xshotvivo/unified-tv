@@ -65,7 +65,7 @@
 
 ## Environment facts still unknown
 
-- Toshiba REGZA 75R700SF is the first target and is reported to run Android 12. Exact firmware/build, SoC, ABI, RAM/storage, MediaCodec inventory and ADB state remain to be captured.
+- Toshiba REGZA 75R700SF is the first target and is reported to run Android 12; user-provided software version is V2.0.260415 / R700SF-HISI-V03. Exact Android build fingerprint, SoC, ABI, RAM/storage, MediaCodec inventory and ADB state remain to be captured.
 - Windows 11 Docker Desktop/WSL2 state.
 - NAS hardware, disk topology, filesystem and backup target.
 - Router model, flash/RAM, OpenWrt support and recovery method.
