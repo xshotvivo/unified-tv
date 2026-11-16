@@ -72,7 +72,7 @@ No cross-platform feature is considered supported until its platform-specific bu
 ## 7. November 2026 candidate disposition
 
 - AlgerMusicPlayer: useful desktop architecture reference for Provider Registry and local service integration; desktop only. The project owner stated on 2026-10-07 that Android/iOS/tablet/car/TV clients are no longer maintained because their public API service was blocked. Do not use it as the Android TV or mobile foundation.
-- Folia upstream: strong lyrics, visualizer and provider-modularity reference. AGPL-3.0; the Folium 2 source-module API is preview-stage in the 2026-11-14 build. Do not copy code without a license review.
+- Folia upstream: the folia-major release page lists Realeco v0.7.28 (2026-11-11), Cielo Canary / Folium 2 preview (2026-11-14) and Limo nightly (2026-11-15). It is a strong lyrics, visualizer and provider-modularity reference. AGPL-3.0; the Folium 2 source-module API is preview-stage. Do not copy code without a license review.
 - Folia Android TV fork: TV-specific remote/focus/album-wall reference. Its README claims minSdk 24 and provides an APK link, but the hardware-adaptive and smoothness claims are upstream claims, not R700 test evidence. AGPL-3.0.
 - Finamp: Jellyfin-backed mobile music client. Its maintainers moved to the finamp-app organization; the current release line includes beta builds. Android TV D-pad and R700 support remain unverified.
 - Aerial TV Launcher: Android TV launcher/ambient reference only; it is not a music engine.
