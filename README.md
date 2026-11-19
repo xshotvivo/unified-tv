@@ -47,6 +47,10 @@ These are proposed specifications and research candidates, not implemented or de
 
 The first R700 phase is an Android 12 experience and integration layer, subject to permissions and APIs actually available on the retail device. A launcher is not a standalone operating system. A true independent TV OS requires control of the system image, framework, system services, HAL, drivers, signing/update chain, security model and app ecosystem. No such capability is assumed here.
 
+## Engineering Skills
+
+- [UTV Engineering Skills](UTV-Engineering-Skills/README.md): task-routed Codex skill library, project rules, evidence standards, templates and 12 domain workflows. These are reusable instructions, not proof of implementation or device validation.
+
 ## Architecture and governance
 
 - [Knowledge & Research Framework](docs/research/knowledge-framework.md)
