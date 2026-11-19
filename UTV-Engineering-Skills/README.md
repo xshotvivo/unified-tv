@@ -11,8 +11,8 @@ A governed, task-routed skill library for UNIFIED TV (UTOS). It is an engineerin
 ## Use in Codex
 1. Pull the parent repository and open its root in Codex.
 2. Read the root AGENTS.md and this library's AGENTS.md.
-3. Codex does not automatically load arbitrary GitHub subfolders as skills. Copy or symlink desired skill folders into the supported local `.agents/skills/` location.
-4. Invoke the selected skill by name or use ROUTING.md. Skills do not grant permissions or prove tests passed.
+3. The repository now includes 12 Codex-discoverable skills under the root `.agents/skills/` directory. The detailed library copies under this folder are the governance/reference source; keep the two sets synchronized when editing skills.
+4. Pull the latest repository in your local Codex workspace. Invoke a skill by its `name` or use ROUTING.md. Skills do not grant permissions or prove tests passed.
 
 ## Modes
 | Mode | Trigger | Required depth |
