@@ -43,6 +43,8 @@ Study the strongest ideas across Apple tvOS, Google TV, Android TV/AOSP, Samsung
 - [UMI Architecture Decision](docs/architecture/ADR-0001-universal-media-integration.md): initial architecture decision and alternatives.
 - [UMI End-to-End Acceptance](docs/engineering/umi-e2e-acceptance.md): executable test matrix and real-device exit criteria.
 - [UMI CI Baseline](docs/engineering/umi-ci-baseline-2026-11-23.md): first hosted Kotlin/JVM build and unit-test evidence, with explicit non-coverage.
+
+The initial UMI core now includes defensive M3U/TXT and named TVBox JSON adapters, canonical source/resource/candidate models, and a provenance-preserving in-memory catalog contract. It remains a core library, not an Android app or a working player.
 - [Reliability Engineering](docs/engineering/reliability-engineering.md): incident classification, resilience controls, recovery, measurement and release gates.
 
 Most modules remain proposed specifications and research candidates. UMI now has an initial Kotlin/JVM core and passing CI unit tests, but it is not yet integrated into an Android app or validated on a device. See [System Architecture](docs/architecture/system-architecture.md), [Roadmap](ROADMAP.md) and the [2026-11-09 weekly intelligence review](docs/research/weekly-intelligence-2026-11-09.md).
