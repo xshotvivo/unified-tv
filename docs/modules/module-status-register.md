@@ -8,7 +8,7 @@
 | Experience shell / launcher | Proposed baseline | No | No | No |
 | App Library | Separate domain proposed | No | No | No |
 | Playback System | Engine-neutral design proposed | No | No | No |
-| Universal Media Integration | Architecture proposal + ADR + E2E acceptance matrix; implementation not started | No | No | No |
+| Universal Media Integration | Architecture + ADR + E2E matrix; Kotlin/JVM core adapters implemented, CI unit tests pass; Android integration not started | No | Core CI tests only; no device test | No |
 | Live TV / IPTV | Proposed engineering baseline | No | No | No |
 | Sports Live Center | Separate module scope established for research | No | No | No |
 | Media Center / local library | Proposed module specification | No | No | No |
