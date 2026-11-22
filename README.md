@@ -39,6 +39,9 @@ Study the strongest ideas across Apple tvOS, Google TV, Android TV/AOSP, Samsung
 - [Apple TV / tvOS Ecosystem](docs/research/apple-tv-tvos-ecosystem.md): five-category Apple TV app map, Android TV comparison and UTOS learning backlog.
 - [UTOS AI Agent](docs/modules/ai-agent.md): natural-language intent, bounded task planning and controlled orchestration of approved UTOS services.
 - [Playback System](docs/modules/playback-system.md): engine-neutral playback contracts and measurable quality gates.
+- [Universal Media Integration](docs/architecture/universal-media-integration.md): shared source adapters, protocol/runtime boundaries, canonical resource identity, provenance, resolution and recovery.
+- [UMI Architecture Decision](docs/architecture/ADR-0001-universal-media-integration.md): initial architecture decision and alternatives.
+- [UMI End-to-End Acceptance](docs/engineering/umi-e2e-acceptance.md): executable test matrix and real-device exit criteria.
 - [Reliability Engineering](docs/engineering/reliability-engineering.md): incident classification, resilience controls, recovery, measurement and release gates.
 
 These are proposed specifications and research candidates, not implemented or device-validated features. See [System Architecture](docs/architecture/system-architecture.md), [Roadmap](ROADMAP.md) and the [2026-11-09 weekly intelligence review](docs/research/weekly-intelligence-2026-11-09.md).
