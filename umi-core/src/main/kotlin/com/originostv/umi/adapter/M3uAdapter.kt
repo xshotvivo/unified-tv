@@ -69,7 +69,7 @@ class M3uAdapter(
     }
 
     private fun attribute(line: String, name: String): String? {
-        val regex = Regex("""(?:^|\\s)$name="([^"]*)"""", RegexOption.IGNORE_CASE)
+        val regex = Regex("""(?:^|\s)$name="([^"]*)"""", RegexOption.IGNORE_CASE)
         return regex.find(line)?.groupValues?.getOrNull(1)?.takeIf(String::isNotBlank)
     }
 
