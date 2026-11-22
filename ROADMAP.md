@@ -15,6 +15,7 @@ Planning baseline only; not a promise of delivery dates.
 ## Phase 0A — Universal Media Integration foundation
 - [x] Define UMI ownership boundaries across Live TV, Media Center, Cloud Drive and Playback System.
 - [x] Record ADR-0001 and the first end-to-end acceptance matrix.
+- [x] Create the Kotlin/JVM UMI core, M3U/TXT and TVBox JSON first-pass adapters, seven unit tests and GitHub Actions CI (CI pass on commit 1198e31; Android/device integration remains open).
 - [ ] Review and approve source/resource/candidate contracts against existing domain specifications.
 - [ ] Confirm repository license and contribution policy before adding production code or upstream dependencies.
 - [ ] Establish Android/Kotlin app workspace, Gradle wrapper and CI build/test pipeline.
