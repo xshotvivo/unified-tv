@@ -55,4 +55,25 @@ class M3uAdapterTest {
         assertTrue(result.value.isEmpty())
         assertEquals(FailureCategory.UNSUPPORTED_SCHEME, result.diagnostics.single().category)
     }
+    @Test
+    fun sameTvgIdProducesStableCrossSourceIdentity() {
+        val first = adapter.parse(
+            "source-a",
+            """#EXTM3U
+#EXTINF:-1 tvg-id="news.one",News One
+https://a.example/live.m3u8"""
+        ).value!!.single()
+        val second = adapter.parse(
+            "source-b",
+            """#EXTM3U
+#EXTINF:-1 tvg-id="news.one",News One HD
+https://b.example/live.m3u8"""
+        ).value!!.single()
+
+        assertEquals(first.identity.resourceId, second.identity.resourceId)
+        assertEquals("tvg-id", first.identity.namespace)
+        assertEquals(first.identity.namespace, second.identity.namespace)
+        assertTrue(first.candidates.single().candidateId != second.candidates.single().candidateId)
+    }
+
 }
