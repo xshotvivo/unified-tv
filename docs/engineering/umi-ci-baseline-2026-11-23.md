@@ -24,10 +24,10 @@ This is evidence that CI is exercising the tests and catching defects. It does n
 ## Latest core regression run
 
 - Workflow run: https://github.com/xshotvivo/unified-tv/actions/runs/45051615757
-- Tested commit: a8e9151f7df3fc5cd349b57156df13f799f08e78
+- Tested commit: 72d4e8b295fad4aeb43790e599fd25e449bb7500
 - Result: **PASS — BUILD SUCCESSFUL** (Gradle 8.14.3, JDK 17).
-- Unit tests: **11 passed** — 4 M3U/TXT, 3 TVBox JSON and 4 catalog aggregation/replacement tests.
-- New coverage: same logical channel from two sources retains both candidates; source snapshot replacement removes stale candidates without deleting another source; invalid mixed-source snapshot is rejected without mutating prior state; search is case-insensitive.
+- Unit tests: **12 passed** — 5 M3U/TXT, 3 TVBox JSON and 4 catalog aggregation/replacement tests.
+- New coverage: same logical channel from two sources retains both candidates; source snapshot replacement removes stale candidates without deleting another source; invalid mixed-source snapshot is rejected without mutating prior state; search is case-insensitive; a shared TVG ID maps to a stable cross-source resource identity while each source retains its own candidate.
 
 ## What this proves
 
