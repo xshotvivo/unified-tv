@@ -12,6 +12,14 @@ Planning baseline only; not a promise of delivery dates.
 - [ ] Record exact R700 model suffix, firmware/build, SoC, RAM/storage and developer access.
 - [ ] Define module ownership, interface versioning and compatibility policy.
 
+## Phase 0A — Universal Media Integration foundation
+- [x] Define UMI ownership boundaries across Live TV, Media Center, Cloud Drive and Playback System.
+- [x] Record ADR-0001 and the first end-to-end acceptance matrix.
+- [ ] Review and approve source/resource/candidate contracts against existing domain specifications.
+- [ ] Confirm repository license and contribution policy before adding production code or upstream dependencies.
+- [ ] Establish Android/Kotlin app workspace, Gradle wrapper and CI build/test pipeline.
+- [ ] Capture exact R700 firmware/build/ABI and Windows 11 build/ADB environment.
+
 ## Phase 1 — Live TV research and architecture closure
 - [ ] Re-check shortlisted GitHub projects, releases, issue activity, security posture and exact licenses.
 - [ ] Inspect Media3, libmpv/FFmpeg, Compose for TV, Room, XMLTV and network stack compatibility.
@@ -157,3 +165,15 @@ A milestone is complete only when requirements, test evidence, known limitations
 - [x] Recheck Apple TV/tvOS client and ambient-app classification; correct Swiftfin's first-party Jellyfin status.
 - [x] Create separate module specifications for online video, cloud drive, sports live, retro games, Docker operations, home network and cross-device services.
 - [ ] P0 remains: exact R700/Windows/NAS/router inventory, disposable trials, restore tests and per-device playback validation.
+
+
+## Phase 3D — UMI first vertical slice
+- [ ] Implement versioned SourceDescriptor, SourceSnapshot, ResourceIdentity, SourceResource, PlaybackCandidate and typed diagnostic contracts.
+- [ ] Implement defensive M3U/TXT ingestion with bounded streaming parse and malformed-input tests.
+- [ ] Implement one explicitly versioned TVBox JSON schema adapter; reject unsupported schemas without destroying prior snapshots.
+- [ ] Implement transactional catalog persistence, stable IDs, provenance retention and duplicate-import idempotency.
+- [ ] Implement cross-source search and candidate selection over the canonical model.
+- [ ] Resolve only HTTP(S)/HLS candidates through an allowlisted request profile; enforce redirect/SSRF/size/time limits.
+- [ ] Integrate the shared Playback System contract; compare embedded playback with the installed VLC Android app using identical local fixtures on R700.
+- [ ] Add typed failure classification, bounded retry, eligible-candidate failover and post-switch playback verification.
+- [ ] Execute G0-G6 and the full UMI end-to-end acceptance matrix; attach CI and exact R700 evidence before claiming completion.
