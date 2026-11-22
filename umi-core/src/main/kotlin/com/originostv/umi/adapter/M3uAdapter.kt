@@ -43,6 +43,7 @@ class M3uAdapter(
 
             val name = pendingName ?: pendingTvgId ?: uri.host
             val itemId = pendingTvgId ?: stableHash("$sourceId|$line")
+            val identityNamespace = if (pendingTvgId.isNullOrBlank()) "m3u:$sourceId" else "tvg-id"
             val resourceId = "channel:" + stableHash(itemId.lowercase())
             val protocol = if (uri.path.endsWith(".m3u8", true)) TransportProtocol.HLS
                 else if (uri.scheme.equals("https", true)) TransportProtocol.HTTPS else TransportProtocol.HTTP
@@ -57,7 +58,7 @@ class M3uAdapter(
             resources += SourceResource(
                 sourceId = sourceId,
                 sourceItemId = itemId,
-                identity = ResourceIdentity(resourceId, ResourceType.CHANNEL, "m3u:$sourceId"),
+                identity = ResourceIdentity(resourceId, ResourceType.CHANNEL, identityNamespace),
                 displayName = name,
                 group = pendingGroup,
                 logoUri = pendingLogo?.takeIf { parseHttpUri(it) != null },
