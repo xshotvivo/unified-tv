@@ -187,4 +187,4 @@ A successful build, HTTP 200, manifest download, parser unit test or external VL
 
 A = authoritative inspected source; B = reproducible measurement with exact device/build/fixture/network/method; C = engineering inference; D = design target; U = unknown/not tested.
 
-Current UMI status: **D — architecture proposal only**. No implementation, CI result, embedded playback result or R700 acceptance is claimed.
+Current UMI status: **D — architecture and contracts are a design baseline; A — Kotlin/JVM core source adapters and CI workflow exist; B — seven core unit tests passed in GitHub Actions on commit 1198e31; U — Android app integration, network resolution, embedded playback, fault recovery and R700 acceptance remain unimplemented or untested.** The CI result is recorded in docs/engineering/umi-ci-baseline-2026-11-23.md.
