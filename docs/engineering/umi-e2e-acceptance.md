@@ -1,6 +1,6 @@
 # UMI End-to-End Acceptance Matrix
 
-**Status:** Test design plus initial Kotlin/JVM adapter unit tests. Seven unit tests passed in GitHub Actions; no end-to-end, network, embedded-player or R700 hardware tests have been executed.
+**Status:** Test design plus initial Kotlin/JVM adapter unit tests. Eleven Kotlin/JVM core unit tests passed in GitHub Actions; no end-to-end, network, embedded-player or R700 hardware tests have been executed.
 **Applies to:** First UMI vertical slice on Android TV / Toshiba R700.
 **Evidence:** Every test must link to a run, app commit/build, fixture hash and device record.
 
