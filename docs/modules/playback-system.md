@@ -222,3 +222,11 @@ A test passes only if playback sustains the source frame rate without unacceptab
 - The known MyTV long-session freeze remains without a confirmed root cause. Network, source, demux, decoder, Surface/render, player state machine, system media service and thermal/resource pressure remain hypotheses until controlled comparison.
 - Marco Movie 0.6.2 upstream notes report fixes for its own ExoPlayer release-state NullPointerException and libmpv SIGABRT, plus Media3 fallback. These are useful external regression patterns, not evidence about MyTV or UTOS code.
 - No UTV playback fix, cross-device test, long-session soak or metric baseline was completed. Do not mark a repair successful without reproduction, before/after comparison, regression coverage and sustained playback observation.
+
+
+## Weekly reliability review — 2026-11-23
+
+- No new R700 Logcat, MyTV/VLC player log, PTS/DTS trace, CPU/RAM/thermal sample or reproducible playback report was available in this review. This is a data gap, not evidence that no fault occurred.
+- The known MyTV long-session freeze remains without a confirmed root cause. Network, source, demux, decoder, Surface/render, player state machine, system media service and thermal/resource pressure remain hypotheses until controlled comparison.
+- Marco Movie 0.6.2 upstream notes report fixes for its own ExoPlayer release-state NullPointerException and libmpv SIGABRT, plus Media3 fallback. These are useful external regression patterns, not evidence about MyTV or UTOS code.
+- No UTV playback fix, cross-device test, long-session soak or metric baseline was completed. Do not mark a repair successful without reproduction, before/after comparison, regression coverage and sustained playback observation.
