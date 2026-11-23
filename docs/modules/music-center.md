@@ -103,3 +103,13 @@ No R700 installation or playback test is claimed in this snapshot.
 - Audio fidelity statements are supported by the actual end-to-end output path.
 - Every provider has documented rights, terms, credential handling and failure behavior.
 - The player engine can be replaced without rewriting Music Center UI or metadata.
+
+
+## Weekly incremental update — 2026-11-23
+
+- AlgerMusicPlayer 5.1.0 main-branch change on 2026-11-20 adds WebDAV synchronization for settings, provider plugins, history, favorites and login state. Local WebDAV password storage uses Electron safeStorage, but remote backup.json can contain login cookies and provider variables in plaintext; login sync defaults off and requires confirmation. UTV may reuse category sync/conflict handling, but must encrypt the backup envelope client-side and exclude credentials by default.
+- Navidrome 0.64.2 remains the latest checked stable release. A 2026-11-23 main-branch commit adds an adapter exposing Internet Radio stations through the Jellyfin Live TV Radio API. This is source-level, not a tagged release. It is an adapter pattern only; music radio and IPTV video channels keep separate domain models.
+- Feishin 1.17.0 and Finamp 1.0.2 remain the checked release baselines; recent commits do not establish a new stable release or Android TV remote-control support.
+- Folia/Realeco 0.7.29 was released 2026-11-16 with Lattice radio wall, lyric visual themes, performance inspection and local-library import/rendering improvements. Folium 2 source-provider work still has alpha/preview boundaries; the 2026-11-22 source commit is not a new stable package.
+- Aerial TV Launcher is an Android TV desktop/ambient reference, not a music engine or tvOS app. The 2026-11-23 source commit updates its version marker to 2.17 (versionCode 161), Lite 1.40 (versionCode 42); no signed release artifact or R700 test was established.
+- The November full music ecosystem review was completed on 2026-11-16. This is an incremental update only.
