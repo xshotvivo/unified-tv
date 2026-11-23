@@ -103,9 +103,9 @@ FygoOS/Fygo TV official product/help material is a starting point; vendor-publis
 - **Decision:** Study; no install or hardware compatibility is claimed.
 
 ### Media server
-- Jellyfin latest checked release: 12.4, published 2026-10-26: https://github.com/jellyfin/jellyfin/releases/tag/v12.4
-- Jellyfin 12.4 is a minor release within 12.x; the major migration boundary is entering 12.0 from an older major line. The 12.4 release note still says to take a full backup before upgrading. Clone the database/library, back up configuration and metadata, review plugins and test every client before any production upgrade.
-- Swiftfin's current README is linked to Jellyfin 12.0 and tvOS 26+; validate server 12.4 compatibility instead of inferring it.
+- Jellyfin Server 12.0 (2026-09-08): https://github.com/jellyfin/jellyfin/releases/tag/v12.0; Jellyfin Web 12.4 (2026-10-26) is a separate frontend release.
+- Server 12.0 requires a full data-directory backup; remove third-party plugins before migration, re-add only after compatibility review, and run a full library scan afterward. Legacy /emby/* and /mediabrowser/* routes and legacy authorization behavior changed. No production upgrade is approved.
+- Swiftfin 1.7.1 was released 2026-11-16. Its current README states tvOS 26+ and a Jellyfin 12.0 badge; server/client compatibility still requires a real Apple TV test.
 - Plex and Emby exact current stable release numbers were not verified in this pass; keep version fields U rather than guessing.
 
 ### Cloud-drive service candidates
@@ -115,3 +115,18 @@ FygoOS/Fygo TV official product/help material is a starting point; vendor-publis
 - rclone 1.76.0 includes security fixes for multiple CVEs, safer HTTPS downgrade/redirect behavior and local symlink/path protections. Use a disposable environment and pin the exact version/digest before trial.
 
 No NAS, disk, Docker host, cloud account or R700 device was changed or tested.
+
+
+## Weekly version and security delta — 2026-11-23
+
+### Version corrections
+- Jellyfin **Server 12.0** was released 2026-09-08. Jellyfin **Web 12.4** is a separate frontend version released 2026-10-26. Do not label Server as 12.4.
+- Server 12.0 requires a full data-directory backup before migration; remove third-party plugins before migration, re-add only after compatibility review, and run a full library scan afterward. Legacy /emby/* and /mediabrowser/* routes and legacy authorization behavior changed. No production upgrade is approved.
+- OpenMediaVault upstream Debian changelog was bumped to 8.7.2-1 in a 2026-11-21 commit. The corresponding official ISO/package release was not independently confirmed; treat this as source-tree evidence, not an installed stable package version.
+- TrueNAS 25.10.8 was released 2026-11-05. Official notes report Linux 6.12 LTS updates addressing 1,600+ upstream CVEs and a fix preventing dataset passphrases from appearing in internal job arguments.
+
+### Cloud-drive and server changes
+- OpenList v4.2.9 remains the prior stable baseline. A 2026-11-17 main-branch commit drops the Lite build variant and fixes Quark Open content-hash handling; recent commits also cover token-rotation persistence and SQLite WAL. Main-branch changes are not automatically a released image.
+- rclone 1.76.0 remains the latest checked stable baseline. A 2026-11-22 main-branch commit adds a local multi-thread upload buffer optimization. Its attached benchmark is upstream-specific and not a UTV/NAS test.
+- Jellyfin Android TV 0.20.0 was released 2026-11-10; minimum Android 6/API 23 and built against the Jellyfin 10.11 SDK. This does not establish R700 compatibility or Server 12.0 end-to-end compatibility.
+- No NAS, disk, Docker host, media server or R700 device was installed, upgraded or tested.
