@@ -140,3 +140,27 @@ P4 — playback and recovery:
 ## 10. Decision summary
 
 Keep the existing IPTV Source Engine as the semantic source of truth. Add Cloud IPTV Hub as a thin publication, identity and device-delivery layer. Do not build a giant Worker that scrapes, probes and proxies every stream. Do not promise universal zero-touch player setup. The first meaningful prototype is a deterministic, versioned playlist/EPG publisher plus a UTV client pairing contract, not a video proxy.
+
+  
+## Weekly evidence delta — 2026-11-23
+
+### Cloudflare quota snapshot
+Official pricing/limits checked 2026-11-23:
+- Pages Free: 500 builds/month, 20,000 files per project, 25 MiB per file.
+- Workers Free: 100,000 requests/day and 10 ms CPU per invocation; Paid starts at US$5/month and includes 10M requests/month plus 30M CPU ms.
+- KV Free: 100,000 reads/day, 1,000 writes/day, 1 GB; value size up to 25 MiB. KV is eventually consistent, with propagation that can take around 60 seconds.
+- R2 Standard Free: 10 GB-month, 1M Class A operations and 10M Class B operations/month; internet egress is free.
+- D1 Free: 5M rows read/day, 100,000 rows written/day and 5 GB total storage.
+
+Sources: [Pages limits](https://developers.cloudflare.com/pages/platform/limits/), [Workers pricing](https://developers.cloudflare.com/workers/platform/pricing/), [KV limits](https://developers.cloudflare.com/kv/platform/limits/), [R2 pricing](https://developers.cloudflare.com/r2/pricing/).
+
+### Updated architecture constraint
+Workers should remain a lightweight authorization/device API and version-manifest layer. Source crawling, large playlist parsing, FFmpeg, HLS segment probing and sustained playback checks belong in GitHub Actions or a controlled worker service. D1 is the candidate authoritative device/subscription registry; KV is only a cache, not a one-time pairing-token authority. R2 stores immutable, versioned playlist/EPG artifacts. Pages hosts the management UI. R2 static hosting does not transcode, proxy or improve live video.
+
+### Public source snapshot
+2026-11-23 static read/parse only:
+- best-fan CCTV: 115 entries, 35 distinct display names, 107 HTTP / 8 HTTPS URLs.
+- best-fan Province: 138 entries, 34 distinct display names, 128 HTTP / 10 HTTPS URLs.
+- best-fan All: 254 entries, 70 distinct display names, 236 HTTP / 18 HTTPS URLs.
+- hujingguang ChinaIPTV: 49 entries, 48 unique URL strings, 13 HTTP / 36 HTTPS URLs, one exact duplicate URL.
+Repeated display names are likely alternate lines and must not be blindly removed. No HTTP status, latency, HLS segment or actual playback test was run. The user's V1.0 source priority is unchanged.
