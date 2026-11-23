@@ -115,3 +115,12 @@ LunaTV/MoonTV-style services are optional external provider/front-end adapters, 
 - TVBox Desktop 0.1.0 is a Windows Electron client under MIT; last visible repository commit is 2026-09-27. No verifiable code signature was found. Built-in feed/channel claims are not independent evidence or proof of content authorization.
 - CatVodTVOfficial/TVBoxOSC could not be read at the canonical path; forks and aggregators must not be treated as the official upstream.
 - TVOS remains a UTV-owned metadata/resource catalogue, Movie Lite remains the lightweight discovery UI, Provider remains the lawful source adapter and Super Player remains the playback owner. No new code or deployment was performed.
+
+
+## Weekly client ecosystem update — 2026-11-23
+
+- Marco Movie Android TV 0.6.2 was published 2026-11-23. Upstream release notes list fixes for ExoPlayer release-state NullPointerException and libmpv SIGABRT, Media3 fallback for MPV initialization failures/DRM-encrypted streams, subscription refresh and multi-source grouping, plus network-drive/configuration-center work. The release notes explicitly do not claim physical TV installation or long-session playback testing. Study only; no R700 compatibility claim.
+- Jellyfin Android TV 0.20.0 was published 2026-11-10; minimum Android 6/API 23 and built against the Jellyfin 10.11 SDK. Playback, subtitle and external-player changes are worth a controlled trial, but Jellyfin Server 12.0 compatibility and R700 ABI/codec behavior remain unverified.
+- TVBox Desktop 0.1.0 is a Windows Electron client under MIT; last visible repository commit is 2026-09-27. No verifiable code signature was found. Built-in feed/channel claims are not independent evidence or proof of content authorization.
+- CatVodTVOfficial/TVBoxOSC could not be read at the canonical path; forks and aggregators must not be treated as the official upstream.
+- TVOS remains a UTV-owned metadata/resource catalogue, Movie Lite remains the lightweight discovery UI, Provider remains the lawful source adapter and Super Player remains the playback owner. No new code or deployment was performed.
