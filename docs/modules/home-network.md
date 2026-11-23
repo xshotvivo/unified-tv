@@ -47,3 +47,11 @@ No router model or production compatibility is currently verified.
 - Mihomo v1.19.34 (2026-11-11) adds upstream protocol and listener improvements including Snell v6 and multiple Shadowsocks users, alongside TUN/TFO/SOCKS fixes.
 - OpenClash 0.48.002 remains the last checked package baseline. Do not infer Smart core support for every upstream Mihomo protocol; validate the exact core build and generated configuration separately.
 - No public subscription was imported, no router configuration was changed and no proxy node was tested.
+
+
+## Weekly security delta — 2026-11-23
+
+- OpenWrt 25.12.6 (2026-10-18) includes security fixes across uhttpd, Mbed TLS, hostapd/wpa_supplicant, rpcd and LuCI. Review the release notes against the actual router target and recovery method before any change; no user router model was established and no upgrade was performed.
+- Mihomo v1.19.34 (2026-11-11) adds upstream protocol and listener improvements including Snell v6 and multiple Shadowsocks users, alongside TUN/TFO/SOCKS fixes.
+- OpenClash 0.48.002 remains the last checked package baseline. Do not infer Smart core support for every upstream Mihomo protocol; validate the exact core build and generated configuration separately.
+- No public subscription was imported, no router configuration was changed and no proxy node was tested.
