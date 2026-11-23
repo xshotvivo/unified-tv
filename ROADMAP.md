@@ -183,3 +183,27 @@ A milestone is complete only when requirements, test evidence, known limitations
 - [x] Add TVOS/Movie Lite boundaries and review Marco Movie, TVBox-derived clients and Aerial/Folia distinctions.
 - [x] Update Mihomo upstream to v1.19.34 and record OpenClash issue evidence.
 - [ ] P0 remains: exact R700 capability inventory, authorized playback fixtures, repeatable player logs, disposable service trials and restore tests.
+
+
+## Weekly baseline — 2026-11-23
+
+### P0 — next acceptance gates
+- [ ] Capture the R700 build fingerprint, SoC, ABI, MediaCodec inventory, memory/storage, ADB state and network path before any client compatibility claim.
+- [ ] Isolated Guovin IPTV-API 3.1.0 / IPTV Checker comparison: Python 3.14, pinned dependencies/image digest, config migration, M3U/EPG output, restore and probe semantics.
+- [ ] Build the Cloud IPTV Hub minimum path with synthetic/authorized sources: ingest → normalize → dedupe → probe → EPG → immutable M3U/EPG → R2 → D1 device binding → UTV client read → rollback.
+- [ ] Establish R700 playback baseline and reproduce the MyTV long-session freeze with VLC/Media3 controls and full logs.
+- [ ] Validate NAS installation, permissions, backup, restore and rollback only in disposable VM/hardware.
+- [ ] Create a sanitized proxy-subscription fixture and benchmark SubConverter-Extended 1.11.8 against the Rust candidate; verify Mihomo client loading.
+- [ ] Design client-side encrypted Music Center WebDAV backups and exclude login cookies/provider secrets by default.
+
+### P1 — architecture/client trials
+- [ ] Specify UTV client QR pairing, device revocation, subscription refresh and configuration version contract.
+- [ ] Verify Kodi, VLC and TiviMate remote-subscription behavior separately; retain one-time manual setup where no supported interface exists.
+- [ ] Review Marco Movie Android TV 0.6.2 and Jellyfin Android TV 0.20.0 for ABI, signature, permissions, D-pad, subtitles, HDR, sleep/wake and sustained playback.
+- [ ] Test OpenList/rclone read-only mount, HTTP Range, resume, cache invalidation and restore in a disposable environment.
+
+### Evidence snapshot
+- best-fan public playlists parsed: 115 CCTV / 138 province / 254 all-list entries; hujingguang list: 49 entries. No URL health, HLS segment or playback tests.
+- Swiftfin 1.7.1, Folia 0.7.29, Marco Movie Android TV 0.6.2, Jellyfin Android TV 0.20.0 and SubConverter-Extended 1.11.8 are Study candidates, not Adopt.
+- OpenMediaVault 8.7.2-1 is source-changelog evidence only; packaged release not confirmed.
+- No device, NAS, router, Cloudflare service, APK or production configuration was modified.
