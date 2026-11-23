@@ -68,3 +68,11 @@ The first R700 phase is an Android 12 experience and integration layer, subject 
 ## License
 
 No license has been selected. Until one is added, do not assume this repository grants permission to reuse its contents.
+
+
+## Latest research snapshot — 2026-11-23
+
+- [UTV weekly intelligence report](docs/research/weekly-intelligence-2026-11-23.md): IPTV source health, Cloud IPTV Hub, Cloudflare limits, proxy conversion, NAS, tvOS, Movie Lite/TVOS, Music Center, player reliability and P0 validation.
+- [Network Configuration Processing & Subscription Conversion](docs/modules/network-configuration-processing.md): proxy subscription parsing, Mihomo compatibility, reproducible benchmarks, credential handling and separation from IPTV semantics.
+
+Research status remains Study unless an explicit test record promotes a candidate. No device, NAS, router, Cloudflare service or production configuration was changed in this review.
