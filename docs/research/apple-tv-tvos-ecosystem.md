@@ -183,3 +183,21 @@ Checked 2026-11-07:
 - App Store availability is storefront-specific. The US/UK listings above do not establish availability in the user's storefront.
 - tvOS Browser projects using private APIs remain a sideload-only research path, not a supported App Store installation route.
 - No Apple TV or R700 device was operated in this review.
+
+
+## Weekly delta — 2026-11-23
+
+- Swiftfin 1.7.1 is the latest verified release, published 2026-11-16. Release 1.7.0 introduced Live TV Guide, mpv, SwiftVLC and a tvOS tab-bar placement setting; 1.7.1 adds storable filters, hide-empty-filter behavior, revoked-token sign-in prompts and tvOS fixes. Official release: https://github.com/jellyfin/Swiftfin/releases/tag/1.7.1
+- Swiftfin's App Store and TestFlight paths must remain distinct. Verify invitation/build validity, tvOS minimum and storefront before claiming availability. No Apple TV was operated in this review.
+- Marco Movie's current verified 0.6.2 release is Android TV; no official tvOS App Store/TestFlight release was found in the current release set. Do not infer tvOS support from its multi-platform branding.
+- Aerial TV Launcher, CleanYourTV and FLauncher remain Android/Google TV projects, not tvOS apps. aerialtv.app remains a separate product from pengchujin/aerial-tv.
+- Filebar/Fileball, IIVA, Leplayer, AirWeb, Wobbly TV, Dawnboard and Speedtest have no new evidence in this pass sufficient to upgrade their status. Region storefront availability is not inferred.
+
+
+## Weekly delta — 2026-11-23
+
+- Swiftfin 1.7.1 is the latest verified release, published 2026-11-16. Release 1.7.0 introduced Live TV Guide, mpv, SwiftVLC and a tvOS tab-bar placement setting; 1.7.1 adds storable filters, hide-empty-filter behavior, revoked-token sign-in prompts and tvOS fixes. Official release: https://github.com/jellyfin/Swiftfin/releases/tag/1.7.1
+- Swiftfin's App Store and TestFlight paths must remain distinct. Verify invitation/build validity, tvOS minimum and storefront before claiming availability. No Apple TV was operated in this review.
+- Marco Movie's current verified 0.6.2 release is Android TV; no official tvOS App Store/TestFlight release was found in the current release set. Do not infer tvOS support from its multi-platform branding.
+- Aerial TV Launcher, CleanYourTV and FLauncher remain Android/Google TV projects, not tvOS apps. aerialtv.app remains a separate product from pengchujin/aerial-tv.
+- Filebar/Fileball, IIVA, Leplayer, AirWeb, Wobbly TV, Dawnboard and Speedtest have no new evidence in this pass sufficient to upgrade their status. Region storefront availability is not inferred.

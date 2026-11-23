@@ -55,3 +55,19 @@ R700/Kodi/VLC compatibility remains U until exact clients and hardware are teste
 ## 6. Adoption gates
 
 Study → isolated Trial → Adopt only after license/security review, read-only and write-policy tests, restore drill, cache/resource tests and playback acceptance. No candidate is currently Adopt.
+
+
+## Weekly delta — 2026-11-23
+
+- OpenList v4.2.9 remains the previously checked stable release. Main-branch changes through 2026-11-17 include removing the Lite build variant, fixing Quark Open content-hash handling and persisting token-rotation state with SQLite WAL. These are source-level changes until a matching release/image is verified.
+- rclone 1.76.0 remains the stable baseline. A 2026-11-22 main-branch commit changes local multi-thread upload buffering; the commit includes upstream-specific Windows/Linux benchmark data, not a measurement on the user's PC or a future NAS.
+- OpenMediaVault upstream changelog reached 8.7.2-1 on 2026-11-21; corresponding official packaged release availability remains unverified.
+- No cloud account, token, WebDAV credential, SMB/NFS share or production storage was accessed. Keep read-only first, validate HTTP Range/seek, resume, cache invalidation and restore in a disposable environment.
+
+
+## Weekly delta — 2026-11-23
+
+- OpenList v4.2.9 remains the previously checked stable release. Main-branch changes through 2026-11-17 include removing the Lite build variant, fixing Quark Open content-hash handling and persisting token-rotation state with SQLite WAL. These are source-level changes until a matching release/image is verified.
+- rclone 1.76.0 remains the stable baseline. A 2026-11-22 main-branch commit changes local multi-thread upload buffering; the commit includes upstream-specific Windows/Linux benchmark data, not a measurement on the user's PC or a future NAS.
+- OpenMediaVault upstream changelog reached 8.7.2-1 on 2026-11-21; corresponding official packaged release availability remains unverified.
+- No cloud account, token, WebDAV credential, SMB/NFS share or production storage was accessed. Keep read-only first, validate HTTP Range/seek, resume, cache invalidation and restore in a disposable environment.
