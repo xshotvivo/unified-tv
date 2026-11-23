@@ -302,3 +302,16 @@ Do not run these images until source provenance, license, image digest, SBOM/CVE
 - Docker daemon security: https://docs.docker.com/engine/security/
 - Docker image attestations: https://docs.docker.com/build/metadata/attestations/
 - Docker Compose secrets: https://docs.docker.com/compose/how-tos/use-secrets/
+
+
+## Weekly delta — 2026-11-23
+
+### Versions and candidate boundaries
+- Guovin IPTV-API v3.1.0 remains the latest checked official release (2026-10-12); Python 3.14 is required. open_subscribe_epg is disabled by default. Validate configuration migration and Docker/Windows behavior in isolation.
+- IPTV Checker v5.0.2 exists as a tag, but the official v5.0.2 and v5.0.1 pages point to the same commit SHA and provide no distinct substantive changelog. Treat as a tag/version ambiguity, not an evidenced feature update.
+- IPTV Checker Player is a separate Tauri 2 client using the separate iptv-checker-rs server. The client repository has no LICENSE file and its last visible commit is 2026-09-06: Hold. iptv-checker-rs declares MIT, but that does not license the separate client.
+- TVGO and VsTV searches resolve to multiple unrelated repositories; canonical upstream identity remains unresolved.
+- Smart IPTV Server, IPTV-4GTV, 4GTV-v1, Bee-v1/Bee-v2 have no new source/license/image provenance evidence this week; keep separate Study/Hold records.
+
+### Source file parse snapshot
+best-fan/iptv-sources files were read and parsed on 2026-11-23. Counts and HTTP/HTTPS split are recorded in [Cloud IPTV Hub](../modules/cloud-iptv-hub.md). These are file-parse counts, not channel coverage, reachability or playback success. response-time metadata inside a playlist is not our measurement. No HTTP probe, HLS segment fetch or decoder test was run.
