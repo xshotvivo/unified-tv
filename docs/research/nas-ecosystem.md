@@ -130,3 +130,13 @@ No NAS, disk, Docker host, cloud account or R700 device was changed or tested.
 - rclone 1.76.0 remains the latest checked stable baseline. A 2026-11-22 main-branch commit adds a local multi-thread upload buffer optimization. Its attached benchmark is upstream-specific and not a UTV/NAS test.
 - Jellyfin Android TV 0.20.0 was released 2026-11-10; minimum Android 6/API 23 and built against the Jellyfin 10.11 SDK. This does not establish R700 compatibility or Server 12.0 end-to-end compatibility.
 - No NAS, disk, Docker host, media server or R700 device was installed, upgraded or tested.
+
+
+## Weekly version and security delta — 2026-11-23
+
+- OpenMediaVault upstream Debian changelog was bumped to 8.7.2-1 in a 2026-11-21 commit. The corresponding official ISO/package release was not independently confirmed; treat this as source-tree evidence, not an installed stable package version.
+- TrueNAS 25.10.8 was released 2026-11-05. Official notes report Linux 6.12 LTS updates addressing 1,600+ upstream CVEs and a fix preventing dataset passphrases from appearing in internal job arguments.
+- OpenList v4.2.9 remains the prior stable baseline. A 2026-11-17 main-branch commit drops the Lite build variant and fixes Quark Open content-hash handling; recent commits also cover token-rotation persistence and SQLite WAL. Main-branch changes are not automatically a released image.
+- rclone 1.76.0 remains the latest checked stable baseline. A 2026-11-22 main-branch commit adds a local multi-thread upload buffer optimization. Its attached benchmark is upstream-specific and not a UTV/NAS test.
+- Jellyfin Android TV 0.20.0 was released 2026-11-10; minimum Android 6/API 23 and built against the Jellyfin 10.11 SDK. This does not establish R700 compatibility or Server 12.0 end-to-end compatibility.
+- No NAS, disk, Docker host, media server or R700 device was installed, upgraded or tested.
