@@ -6,6 +6,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class TvBoxJsonAdapterTest {
     private val adapter = TvBoxJsonAdapter()
@@ -25,6 +26,8 @@ class TvBoxJsonAdapterTest {
         assertEquals(2, resources.size)
         assertEquals(ResourceType.PROVIDER, resources.first().identity.resourceType)
         assertEquals("Alpha", resources.first().displayName)
+        // TVBox commonly represents the provider type as a number; preserve it as text.
+        assertEquals("0", resources.first().group)
     }
 
     @Test
@@ -44,5 +47,20 @@ class TvBoxJsonAdapterTest {
         assertEquals(1, resources.size)
         assertEquals("ok", resources.single().sourceItemId)
         assertEquals(FailureCategory.UNSUPPORTED_SCHEME, result.diagnostics.single().category)
+    }
+
+    @Test
+    fun rejectsNonStringRequiredFields() {
+        val invalidSites = listOf(
+            """{"key":7,"name":"Numeric key","api":"https://api.example"}""",
+            """{"key":"numeric-name","name":42,"api":"https://api.example"}""",
+            """{"key":"numeric-api","name":"Numeric API","api":123}"""
+        )
+
+        invalidSites.forEach { site ->
+            val result = adapter.parse("tvbox-source", """{"sites":[$site]}""")
+            assertTrue(assertNotNull(result.value).isEmpty(), "Expected invalid site to be ignored: $site")
+            assertEquals(FailureCategory.SOURCE_PARSE_FAILED, result.diagnostics.single().category)
+        }
     }
 }
