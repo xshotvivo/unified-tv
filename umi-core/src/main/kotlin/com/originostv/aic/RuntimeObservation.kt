@@ -75,10 +75,7 @@ class InMemoryRuntimeObservationStore(
     override fun querySince(sinceInclusive: Instant, limit: Int): List<RuntimeMetric> {
         require(limit >= 0) { "Limit must not be negative" }
         if (limit == 0) return emptyList()
-        return samples.asSequence()
-            .filter { !it.observedAt.isBefore(sinceInclusive) }
-            .takeLast(limit)
-            .toList()
+        return samples.filter { !it.observedAt.isBefore(sinceInclusive) }.takeLast(limit)
     }
 
     @Synchronized
