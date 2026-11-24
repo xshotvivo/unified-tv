@@ -32,11 +32,13 @@ class TvBoxJsonAdapter(
                 diagnostics += IntegrationDiagnostic(FailureCategory.SOURCE_PARSE_FAILED, "Site entry ignored: expected JSON object", index)
                 return@forEachIndexed
             }
+            // The schema requires key/name/api to be JSON strings. JsonPrimitive.content
+            // alone also accepts numbers and booleans, which can silently create bad IDs.
             val key = site.string("key")
             val name = site.string("name")
             val api = site.string("api")
             if (key.isNullOrBlank() || name.isNullOrBlank() || api.isNullOrBlank()) {
-                diagnostics += IntegrationDiagnostic(FailureCategory.SOURCE_PARSE_FAILED, "Site entry ignored: key, name and api are required", index)
+                diagnostics += IntegrationDiagnostic(FailureCategory.SOURCE_PARSE_FAILED, "Site entry ignored: key, name and api must be non-empty strings", index)
                 return@forEachIndexed
             }
             val uri = runCatching { URI(api) }.getOrNull()
@@ -51,14 +53,25 @@ class TvBoxJsonAdapter(
                 sourceItemId = key,
                 identity = ResourceIdentity(resourceId, ResourceType.PROVIDER, "tvbox:$sourceId"),
                 displayName = name,
-                group = site.string("type")
+                // TVBox's type is commonly numeric; accept a JSON scalar without
+                // weakening validation of the required string fields above.
+                group = site.scalarText("type")
             )
         }
         return AdapterResult(resources, diagnostics)
     }
 
     private fun JsonObject.string(key: String): String? =
-        this[key]?.let { runCatching { it.jsonPrimitive.content }.getOrNull() }
+        (this[key] as? JsonPrimitive)
+            ?.takeIf { it.isString }
+            ?.content
+            ?.takeIf(String::isNotBlank)
+
+    private fun JsonObject.scalarText(key: String): String? =
+        (this[key] as? JsonPrimitive)
+            ?.takeUnless { it is JsonNull }
+            ?.content
+            ?.takeIf(String::isNotBlank)
 
     private fun stableId(value: String): String =
         MessageDigest.getInstance("SHA-256").digest(value.toByteArray(Charsets.UTF_8))
