@@ -179,10 +179,11 @@ class AicHashChainAuditLog {
  * never call the pure evaluator directly.
  */
 class AicAuditedSafetyGateway(
-    private val gateway: AicSafetyGateway,
+    policy: SafetyPolicyTable,
     private val auditLog: AicHashChainAuditLog,
     private val clock: () -> Instant
 ) {
+    private val gateway = AicSafetyGateway(policy)
     fun decide(input: SafetyGatewayInput): GatewayDecision {
         val decision = gateway.evaluate(input)
         auditLog.appendGatewayDecision(input, decision, clock())
