@@ -171,3 +171,26 @@ class AicHashChainAuditLog {
 
     private companion object { const val GENESIS_HASH = "0".repeat(64) }
 }
+
+
+/**
+ * Mandatory orchestration boundary for positive actions: evaluate first, then append
+ * the decision before returning it to any executor. Executors must consume this result,
+ * never call the pure evaluator directly.
+ */
+class AicAuditedSafetyGateway(
+    private val gateway: AicSafetyGateway,
+    private val auditLog: AicHashChainAuditLog,
+    private val clock: () -> Instant
+) {
+    fun decide(input: SafetyGatewayInput): GatewayDecision {
+        val decision = gateway.evaluate(input)
+        auditLog.appendGatewayDecision(input, decision, clock())
+        return decision
+    }
+
+    /** Rollback bypasses positive-write authorization, but its outcome is still audited. */
+    fun recordRollback(journalId: String, resourceKey: String, outcome: String) {
+        auditLog.appendRollback(journalId, resourceKey, outcome, clock())
+    }
+}
