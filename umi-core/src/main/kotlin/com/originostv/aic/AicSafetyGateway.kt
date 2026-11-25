@@ -169,7 +169,7 @@ class AicHashChainAuditLog {
         .digest(value.toByteArray(StandardCharsets.UTF_8))
         .joinToString("") { "%02x".format(it) }
 
-    private companion object { const val GENESIS_HASH = "0".repeat(64) }
+    private companion object { val GENESIS_HASH: String = "0".repeat(64) }
 }
 
 
