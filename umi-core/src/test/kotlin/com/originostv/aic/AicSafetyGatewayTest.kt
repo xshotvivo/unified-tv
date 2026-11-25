@@ -90,4 +90,14 @@ class AicSafetyGatewayTest {
         assertEquals(AicAuditEventType.ROLLBACK, audit.snapshot().last().eventType)
         assertTrue(audit.verify())
     }
+    @Test fun auditedEntryPointRecordsEveryDecisionAndRollback() {
+        val audit = AicHashChainAuditLog()
+        val service = AicAuditedSafetyGateway(policy, audit) { Instant.parse("2026-11-25T00:00:00Z") }
+        assertEquals(GatewayDecision.ALLOW, service.decide(input()))
+        assertEquals(GatewayDecision.DENY, service.decide(input(emergencyStop = true)))
+        service.recordRollback("journal-2", "player.engine", "RESTORED")
+        assertEquals(3, audit.snapshot().size)
+        assertTrue(audit.verify())
+    }
+
 }
