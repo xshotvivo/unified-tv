@@ -64,8 +64,8 @@ data class SafetyGatewayInput(
     val cooldownActive: Boolean
 )
 
-class AicSafetyGateway(private val policy: SafetyPolicyTable) {
-    fun evaluate(input: SafetyGatewayInput): GatewayDecision {
+internal class AicSafetyGateway(private val policy: SafetyPolicyTable) {
+    internal fun evaluate(input: SafetyGatewayInput): GatewayDecision {
         if (input.emergencyStopActive) return GatewayDecision.DENY
         if (!input.mechanismRegistered) return GatewayDecision.DENY
         val capability = input.capabilityRow ?: return GatewayDecision.DENY
