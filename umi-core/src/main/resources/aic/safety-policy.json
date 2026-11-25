@@ -1,0 +1,8 @@
+{
+  "automaticAllow": {
+    "L1": ["LOW"]
+  },
+  "confirmationRequired": {
+    "L2": ["LOW", "MEDIUM", "HIGH"]
+  }
+}
