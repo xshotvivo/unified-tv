@@ -7,7 +7,7 @@ This directory is the independent implementation workspace for the UTV Music Med
 - [x] Engineering branch created: `feat/music-media-center-foundation`.
 - [x] Product scope and ownership boundaries documented.
 - [ ] Existing shared Playback System implementation audited.
-- [ ] Canonical music resource model implemented and tested.
+- [x] Canonical music resource model implemented; local Kotlin CLI smoke tests PASS.
 - [ ] Provider/resolver contracts implemented.
 - [ ] Local catalog and playback vertical slice.
 - [ ] Android TV and mobile integration.
