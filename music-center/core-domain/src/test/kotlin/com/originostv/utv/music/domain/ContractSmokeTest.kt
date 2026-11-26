@@ -29,6 +29,14 @@ fun main() {
     check(territorySource.isPlayable(territory = "IT", nowEpochMillis = now))
     check(!territorySource.isPlayable(territory = "SG", nowEpochMillis = now))
 
+    val conflictingRightsSource = allowedSource.copy(
+        rights = setOf(
+            RightsGrant(RightsPermission.PLAYBACK, AuthorizationStatus.AUTHORIZED),
+            RightsGrant(RightsPermission.PLAYBACK, AuthorizationStatus.PROHIBITED),
+        ),
+    )
+    check(!conflictingRightsSource.isPlayable(nowEpochMillis = now))
+
     val resource = MusicResource(
         id = MusicResourceId("utv:track:001"),
         identity = TrackIdentity(recordingId = "recording-a", releaseId = "release-a"),
