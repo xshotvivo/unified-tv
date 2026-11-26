@@ -96,8 +96,8 @@ data class MusicSourceRef(
     ): AuthorizationStatus {
         val applicable = rights.filter { it.permission == permission && it.appliesTo(territory, nowEpochMillis) }
         return when {
-            applicable.any { it.status == AuthorizationStatus.AUTHORIZED } -> AuthorizationStatus.AUTHORIZED
             applicable.any { it.status == AuthorizationStatus.PROHIBITED } -> AuthorizationStatus.PROHIBITED
+            applicable.any { it.status == AuthorizationStatus.AUTHORIZED } -> AuthorizationStatus.AUTHORIZED
             else -> AuthorizationStatus.UNKNOWN
         }
     }
