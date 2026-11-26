@@ -121,5 +121,7 @@ Prefer small, reviewable commits. Keep adapters replaceable. Do not modify the r
 
 - Existing research and product specification are present in the research branch.
 - Existing Playback System specification requires an engine-neutral shared contract and Media3-first Android implementation policy, with secondary engines conditional on measured gaps.
-- No Music Media Center implementation, build, automated test, R700 install or device acceptance is claimed by this charter.
-- First code slice: canonical music resource domain model and invariant tests.
+- Initial core-domain implementation now exists: canonical resource identity, source/availability/rights separation, technical metadata and asset references.
+- Local Kotlin CLI smoke tests passed in this session using kotlinc-jvm 1.9.0 on JRE 21.0.12.1. This is not a Gradle/CI build and not a device test.
+- No full application build, R700 installation, audio-output measurement or device acceptance is claimed.
+- Next code slice: versioned provider/resolver contracts and fake-provider contract tests, after auditing shared playback code.
