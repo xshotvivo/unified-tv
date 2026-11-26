@@ -41,6 +41,8 @@ Study the strongest ideas across Apple tvOS, Google TV, Android TV/AOSP, Samsung
 - [Home Network](docs/modules/home-network.md): OpenWrt, OpenClash, Mihomo, LAN, DNS, multicast and secure remote access.
 - [Cross-device Services](docs/modules/cross-device-services.md): discovery, casting, handoff, session sync and remote control.
 - [UTOS Music Center](docs/modules/music-center.md): local music, authorized providers, playlists, lyrics, audio fidelity and cross-device listening.
+- [UTV Music Media Center Engineering](docs/modules/music-media-center-engineering.md): independent engineering charter, end-to-end workflows, implementation milestones and acceptance gates.
+- [Music Center Code Workspace](music-center/README.md): independent implementation workspace and current code status.
 - [Music Ecosystem — November 2026](docs/research/music-ecosystem-2026-11.md): monthly open-source music project review.
 - [Apple TV / tvOS Ecosystem](docs/research/apple-tv-tvos-ecosystem.md): five-category Apple TV app map, Android TV comparison and UTOS learning backlog.
 - [UTOS AI Agent](docs/modules/ai-agent.md): natural-language intent, bounded task planning and controlled orchestration of approved UTOS services.
